@@ -1,14 +1,13 @@
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
+import 'package:esc/models/tense.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:csv/csv.dart';
-import 'data_of_simple_tenses.dart';
 
 var phrase = const Text('Тебе нравится?');
 
 class SimpleTensesPractice extends StatefulWidget {
-  const SimpleTensesPractice({Key? key}) : super(key: key);
+  final Tense tense;
+
+  const SimpleTensesPractice({Key? key, required this.tense}) : super(key: key);
 
   @override
   State<SimpleTensesPractice> createState() => _SimpleTensesPracticeState();
@@ -19,7 +18,6 @@ double _currentSliderValue = 10;
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   @override
   Widget build(BuildContext context) {
-    var phrases;
     var children2 = [
       const SizedBox(
         height: 50,
@@ -136,10 +134,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           ),
         ),
-        onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/simple_tenses_practice', (route) => true);
-        },
+        onPressed: () {},
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.min,
@@ -180,7 +175,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         height: 10,
       ),
       Text(
-        'Тебе нравится?',
+        widget.tense.phrase,
         textAlign: TextAlign.center,
         style: GoogleFonts.roboto(
             fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
@@ -223,12 +218,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           ),
         ),
-        onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/simple_tenses_practice', (route) => true);
-        },
+        onPressed: () {},
         child: Text(
-          'Do you like?',
+          widget.tense.translation,
           textAlign: TextAlign.center,
           style: GoogleFonts.roboto(
               fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
