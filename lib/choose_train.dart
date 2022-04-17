@@ -1,4 +1,8 @@
+import 'package:csv/csv.dart';
+import 'package:esc/models/tense.dart';
+import 'package:esc/simple_tenses_practice.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChooseTrain extends StatefulWidget {
@@ -20,6 +24,26 @@ class _ChooseTrainState extends State<ChooseTrain> {
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     ),
   );
+  late final List<Tense> _tenses;
+
+  @override
+  void initState() {
+    super.initState();
+    loadTenses().then((value) => _tenses = value);
+  }
+
+  Future<List<Tense>> loadTenses() async {
+    final csvString =
+        await rootBundle.loadString('assets/csv/simple_tenses_practice.csv');
+    final rows =
+        const CsvToListConverter().convert(csvString, fieldDelimiter: ";");
+
+    final tenses = <Tense>[];
+    for (final row in rows) {
+      tenses.add(Tense.fromCSVRow(row.cast<String>()));
+    }
+    return tenses;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,11 +144,16 @@ class _ChooseTrainState extends State<ChooseTrain> {
                               ),
                               ElevatedButton(
                                 style: styleButton,
-                                onPressed: () {
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context,
-                                      '/simple_tenses_practice',
-                                      (route) => true);
+                                onPressed: () async {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          SimpleTensesPractice(
+                                        tense: (_tenses..shuffle()).first,
+                                      ),
+                                    ),
+                                  );
                                 },
                                 child: Row(
                                   mainAxisAlignment:
