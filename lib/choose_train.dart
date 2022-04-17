@@ -24,20 +24,26 @@ class _ChooseTrainState extends State<ChooseTrain> {
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     ),
   );
+
+  // Поле, в которое будем единожды считывать все Tense
   late final List<Tense> _tenses;
 
   @override
   void initState() {
     super.initState();
+    // В initState нельзя использовать асинхронные функции, поэтому используем
+    // конструкцию then()
     loadTenses().then((value) => _tenses = value);
   }
 
   Future<List<Tense>> loadTenses() async {
+    // Читаем csv-файл как строку
     final csvString =
         await rootBundle.loadString('assets/csv/simple_tenses_practice.csv');
+    // Конвертируем csv-строку
     final rows =
         const CsvToListConverter().convert(csvString, fieldDelimiter: ";");
-
+    // Генерируем модельки Tense из csv
     final tenses = <Tense>[];
     for (final row in rows) {
       tenses.add(Tense.fromCSVRow(row.cast<String>()));
@@ -150,6 +156,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           SimpleTensesPractice(
+                                        // Выбираем случайный Tense
                                         tense: (_tenses..shuffle()).first,
                                       ),
                                     ),
