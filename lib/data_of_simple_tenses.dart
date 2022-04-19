@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:csv/csv.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 
-var phr = const Text('нравится?!!!');
+var phr = const Text('не нравится?!!!');
 
 class ReadCsv extends StatelessWidget {
   const ReadCsv({Key? key}) : super(key: key);
