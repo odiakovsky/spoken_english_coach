@@ -265,23 +265,116 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           });
         },
       ),
+      Center(
+        child: Container(
+          color: Colors.blue.shade50,
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(const Size(180, 50)),
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.blue.shade50),
+                  foregroundColor:
+                      MaterialStateProperty.all(Colors.grey.shade700),
+                  overlayColor: MaterialStateProperty.all(
+                      Colors.lightBlueAccent.shade100),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                ),
+                onPressed: null,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      'assets/icons/back.png',
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      'Домой',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.roboto(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(const Size(180, 50)),
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.blue.shade50),
+                  foregroundColor:
+                      MaterialStateProperty.all(Colors.grey.shade700),
+                  overlayColor: MaterialStateProperty.all(
+                      Colors.lightBlueAccent.shade100),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                ),
+                onPressed: null,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      'Вперед',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.roboto(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Image.asset(
+                      'assets/icons/forward.png',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     ];
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.grey.shade100,
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.lightBlue.shade50,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Домой',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.arrow_forward_ios_rounded),
-              label: 'Вперед',
-            ),
-          ],
-        ),
+        // bottomNavigationBar: BottomNavigationBar(
+        //   backgroundColor: Colors.lightBlue.shade50,
+        //   items: const <BottomNavigationBarItem>[
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.home),
+        //       label: 'Домой',
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.arrow_forward_ios_rounded),
+        //       label: 'Вперед',
+        //     ),
+        //   ],
+        // ),
         body: SingleChildScrollView(
           child: Column(
             children: children2,
