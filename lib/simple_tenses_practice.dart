@@ -7,6 +7,15 @@ import 'package:csv/csv.dart';
 import 'package:esc/models/tense.dart';
 
 var phrase = const Text('Тебе нравится?');
+String showTranslation = 'Показать перевод';
+double _currentSliderValue = 10;
+
+Widget _showTranslation() => Text(
+      '$showTranslation',
+      textAlign: TextAlign.center,
+      style: GoogleFonts.roboto(
+          fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
+    );
 
 class SimpleTensesPractice extends StatefulWidget {
   final Tense tense;
@@ -16,8 +25,6 @@ class SimpleTensesPractice extends StatefulWidget {
   @override
   State<SimpleTensesPractice> createState() => _SimpleTensesPracticeState();
 }
-
-double _currentSliderValue = 10;
 
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   late final List<Tense> _tenses;
@@ -45,7 +52,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
     return tenses;
   }
 
-  void changeData() {}
+  Widget _openTranslation() => Text(
+        widget.tense.translation,
+        textAlign: TextAlign.center,
+        style: GoogleFonts.roboto(
+            fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -246,13 +258,14 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           ),
         ),
-        onPressed: () {},
-        child: Text(
-          widget.tense.translation,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.roboto(
-              fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
-        ),
+        onPressed: () {
+          setState(() {
+            showTranslation = widget.tense.translation;
+            print(widget.tense.translation);
+          });
+          //widget.tense.translation,
+        },
+        child: Text(showTranslation),
       ),
       const SizedBox(
         height: 10,
@@ -401,6 +414,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         ),
       ),
     ];
+
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.grey.shade100,
