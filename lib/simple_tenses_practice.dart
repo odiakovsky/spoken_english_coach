@@ -1,6 +1,10 @@
 import 'package:esc/models/tense.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'choose_train.dart';
+import 'package:csv/csv.dart';
+import 'package:esc/models/tense.dart';
 
 var phrase = const Text('Тебе нравится?');
 
@@ -16,6 +20,33 @@ class SimpleTensesPractice extends StatefulWidget {
 double _currentSliderValue = 10;
 
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
+  late final List<Tense> _tenses;
+
+  @override
+  void initState() {
+    super.initState();
+    // В initState нельзя использовать асинхронные функции, поэтому используем
+    // конструкцию then()
+    loadTenses().then((value) => _tenses = value);
+  }
+
+  Future<List<Tense>> loadTenses() async {
+    // Читаем csv-файл как строку
+    final csvString =
+        await rootBundle.loadString('assets/csv/simple_tenses_practice.csv');
+    // Конвертируем csv-строку
+    final rows =
+        const CsvToListConverter().convert(csvString, fieldDelimiter: ";");
+    // Генерируем модельки Tense из csv
+    final tenses = <Tense>[];
+    for (final row in rows) {
+      tenses.add(Tense.fromCSVRow(row.cast<String>()));
+    }
+    return tenses;
+  }
+
+  void changeData() {}
+
   @override
   Widget build(BuildContext context) {
     var children2 = [
@@ -183,8 +214,6 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       Container(
         padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
         alignment: Alignment.bottomRight,
-        // width: 20,
-        // height: 20,
         child: IconButton(
           iconSize: 30,
           color: Colors.black,
@@ -209,7 +238,6 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           padding: MaterialStateProperty.all<EdgeInsets>(
               const EdgeInsets.fromLTRB(50, 30, 50, 30)),
           minimumSize: MaterialStateProperty.all(const Size(180, 50)),
-          //elevation: MaterialStateProperty.all(10),
           backgroundColor: MaterialStateProperty.all(Colors.grey.shade400),
           foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
           overlayColor:
@@ -287,7 +315,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                         borderRadius: BorderRadius.circular(15)),
                   ),
                 ),
-                onPressed: null,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.min,
@@ -329,7 +359,19 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                         borderRadius: BorderRadius.circular(15)),
                   ),
                 ),
-                onPressed: null,
+                onPressed: () {
+                  // widget.tense.phrase =_tenses..shuffle().first,
+
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => SimpleTensesPractice(
+                  //       // Выбираем случайный Tense
+                  //       tense: (_tenses..shuffle()).first,
+                  //     ),
+                  //   ),
+                  // );
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.min,
@@ -362,19 +404,6 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.grey.shade100,
-        // bottomNavigationBar: BottomNavigationBar(
-        //   backgroundColor: Colors.lightBlue.shade50,
-        //   items: const <BottomNavigationBarItem>[
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.home),
-        //       label: 'Домой',
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.arrow_forward_ios_rounded),
-        //       label: 'Вперед',
-        //     ),
-        //   ],
-        // ),
         body: SingleChildScrollView(
           child: Column(
             children: children2,
