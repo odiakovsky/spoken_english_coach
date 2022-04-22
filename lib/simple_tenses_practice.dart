@@ -7,6 +7,8 @@ import 'package:csv/csv.dart';
 import 'package:esc/models/tense.dart';
 
 String showTranslation = 'Показать перевод';
+String showVerb = 'Показать глагол';
+String showVerbTranslation = '';
 double _currentSliderValue = 10;
 
 Widget _showTranslation() => Text(
@@ -56,6 +58,15 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         textAlign: TextAlign.center,
         style: GoogleFonts.roboto(
             fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
+      );
+
+  Widget _phraseShow() => Container(
+        child: Text(
+          widget.tense.phrase,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.roboto(
+              fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
+        ),
       );
 
   @override
@@ -176,7 +187,14 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          setState(
+            () {
+              showVerb = widget.tense.verb;
+              showVerbTranslation = widget.tense.verbTranslation;
+            },
+          );
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.min,
@@ -188,7 +206,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               width: 10,
             ),
             Text(
-              'Показать глагол',
+              '$showVerb\n$showVerbTranslation',
               textAlign: TextAlign.center,
               style: GoogleFonts.roboto(
                   fontSize: 18,
@@ -216,12 +234,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       const SizedBox(
         height: 10,
       ),
-      Text(
-        widget.tense.phrase,
-        textAlign: TextAlign.center,
-        style: GoogleFonts.roboto(
-            fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
-      ),
+      _phraseShow(),
       Container(
         padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
         alignment: Alignment.bottomRight,
@@ -262,10 +275,8 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           setState(() {
             showTranslation = widget.tense.translation;
           });
-          //widget.tense.translation,
         },
         child: _showTranslation(),
-        //Text(showTranslation),
       ),
       const SizedBox(
         height: 10,
@@ -373,17 +384,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                   ),
                 ),
                 onPressed: () {
-                  // widget.tense.phrase =_tenses..shuffle().first,
-
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => SimpleTensesPractice(
-                  //       // Выбираем случайный Tense
-                  //       tense: (_tenses..shuffle()).first,
-                  //     ),
-                  //   ),
-                  // );
+                  setState(() {
+                    //_phraseShow() = new;
+                    //tense:
+                    //widget.tense.translation = showTranslation;
+                    //_openTranslation() = _showTranslation();
+                  });
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
