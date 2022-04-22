@@ -6,7 +6,6 @@ import 'choose_train.dart';
 import 'package:csv/csv.dart';
 import 'package:esc/models/tense.dart';
 
-var phrase = const Text('Тебе нравится?');
 String showTranslation = 'Показать перевод';
 double _currentSliderValue = 10;
 
@@ -14,7 +13,7 @@ Widget _showTranslation() => Text(
       '$showTranslation',
       textAlign: TextAlign.center,
       style: GoogleFonts.roboto(
-          fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
+          fontSize: 28, fontWeight: FontWeight.w700, color: Colors.black),
     );
 
 class SimpleTensesPractice extends StatefulWidget {
@@ -249,7 +248,8 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         style: ButtonStyle(
           padding: MaterialStateProperty.all<EdgeInsets>(
               const EdgeInsets.fromLTRB(50, 30, 50, 30)),
-          minimumSize: MaterialStateProperty.all(const Size(180, 50)),
+          //minimumSize: MaterialStateProperty.all(const Size(180, 50)),
+          fixedSize: MaterialStateProperty.all(const Size(350, 100)),
           backgroundColor: MaterialStateProperty.all(Colors.grey.shade400),
           foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
           overlayColor:
@@ -261,11 +261,11 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         onPressed: () {
           setState(() {
             showTranslation = widget.tense.translation;
-            print(widget.tense.translation);
           });
           //widget.tense.translation,
         },
-        child: Text(showTranslation),
+        child: _showTranslation(),
+        //Text(showTranslation),
       ),
       const SizedBox(
         height: 10,
