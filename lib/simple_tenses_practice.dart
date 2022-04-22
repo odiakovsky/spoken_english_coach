@@ -6,21 +6,8 @@ import 'choose_train.dart';
 import 'package:csv/csv.dart';
 import 'package:esc/models/tense.dart';
 
-String showTranslation = 'Показать перевод';
-String showVerb = 'Показать глагол';
-String showVerbTranslation = '';
-double _currentSliderValue = 10;
-
-Widget _showTranslation() => Text(
-      '$showTranslation',
-      textAlign: TextAlign.center,
-      style: GoogleFonts.roboto(
-          fontSize: 28, fontWeight: FontWeight.w700, color: Colors.black),
-    );
-
 class SimpleTensesPractice extends StatefulWidget {
   final Tense tense;
-
   const SimpleTensesPractice({Key? key, required this.tense}) : super(key: key);
 
   @override
@@ -29,6 +16,18 @@ class SimpleTensesPractice extends StatefulWidget {
 
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   late final List<Tense> _tenses;
+
+  String showTranslation = 'Показать перевод';
+  String showVerb = 'Показать глагол';
+  String showVerbTranslation = '';
+  double _currentSliderValue = 10;
+
+  Widget _showTranslation() => Text(
+        '$showTranslation',
+        textAlign: TextAlign.center,
+        style: GoogleFonts.roboto(
+            fontSize: 28, fontWeight: FontWeight.w700, color: Colors.black),
+      );
 
   @override
   void initState() {
@@ -176,7 +175,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       ElevatedButton(
         style: ButtonStyle(
           padding: MaterialStateProperty.all<EdgeInsets>(
-              const EdgeInsets.fromLTRB(85, 30, 80, 35)),
+              const EdgeInsets.fromLTRB(50, 30, 50, 35)),
+          //fixedSize: MaterialStateProperty.all(const Size(350, 100)),
+
           minimumSize: MaterialStateProperty.all(const Size(180, 50)),
           //elevation: MaterialStateProperty.all(10),
           backgroundColor: MaterialStateProperty.all(Colors.white),
@@ -203,7 +204,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               'assets/icons/clue.png',
             ),
             const SizedBox(
-              width: 10,
+              width: 20,
             ),
             Text(
               '$showVerb\n$showVerbTranslation',
@@ -214,7 +215,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                   color: Colors.black),
             ),
             const SizedBox(
-              width: 10,
+              width: 20,
             ),
             Image.asset(
               'assets/icons/forward.png',
@@ -384,13 +385,18 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                   ),
                 ),
                 onPressed: () {
-                  setState(() {
-                    //_phraseShow() = new;
-                    //tense:
-                    //widget.tense.translation = showTranslation;
-                    //_openTranslation() = _showTranslation();
-                  });
+                  //changePhrase();
                 },
+
+                //() {
+                //setState(() {
+
+                //_phraseShow() = new;
+                //tense:
+                //widget.tense.translation = showTranslation;
+                //_openTranslation() = _showTranslation();
+                //});
+                //},
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.min,
