@@ -318,7 +318,8 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           });
         },
       ),
-      Center(
+      Align(
+        alignment: Alignment.bottomCenter,
         child: Container(
           color: Colors.blue.shade50,
           width: double.infinity,
