@@ -160,7 +160,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                           builder: (context) =>
                                               SimpleTensesPractice(
                                             // Выбираем случайный Tense
-                                            tense: (_tenses..shuffle()).first,
+                                            tenses: _tenses,
                                           ),
                                         ),
                                       );

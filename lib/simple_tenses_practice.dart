@@ -1,78 +1,28 @@
-import 'package:csv/csv.dart';
 import 'package:esc/models/tense.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SimpleTensesPractice extends StatefulWidget {
-  final Tense tense;
-  const SimpleTensesPractice({Key? key, required this.tense}) : super(key: key);
+  final List<Tense> tenses;
+
+  const SimpleTensesPractice({Key? key, required this.tenses})
+      : super(key: key);
 
   @override
   State<SimpleTensesPractice> createState() => _SimpleTensesPracticeState();
 }
 
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
-  late final List<Tense> _tenses;
-
-  String showTranslation = 'Показать перевод';
-  String showVerb = 'Показать глагол';
-  String showVerbTranslation = '';
+  late Tense tense;
   double _currentSliderValue = 10;
 
-  Widget _showTranslation() => Text(
-        showTranslation,
-        textAlign: TextAlign.center,
-        style: GoogleFonts.roboto(
-            fontSize: 28, fontWeight: FontWeight.w700, color: Colors.black),
-      );
+  Tense _getRandomTense() => (widget.tenses..shuffle()).first;
 
   @override
   void initState() {
     super.initState();
-    // В initState нельзя использовать асинхронные функции, поэтому используем
-    // конструкцию then()
-    loadTenses().then((value) => _tenses = value);
+    tense = _getRandomTense();
   }
-
-  Future<List<Tense>> loadTenses() async {
-    // Читаем csv-файл как строку
-    final csvString =
-        await rootBundle.loadString('assets/csv/simple_tenses_practice.csv');
-    // Конвертируем csv-строку
-    final rows =
-        const CsvToListConverter().convert(csvString, fieldDelimiter: ";");
-    // Генерируем модельки Tense из csv
-    final tenses = <Tense>[];
-    for (final row in rows) {
-      tenses.add(Tense.fromCSVRow(row.cast<String>()));
-    }
-    return tenses;
-  }
-
-  Widget _openTranslation() => Container(
-        margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-        child: FittedBox(
-          child: Text(
-            widget.tense.translation,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.roboto(
-                fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
-          ),
-        ),
-      );
-
-  Widget _phraseShow() => Container(
-        margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-        child: FittedBox(
-          child: Text(
-            widget.tense.phrase,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.roboto(
-                fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
-          ),
-        ),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -370,19 +320,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
                     side: BorderSide(color: Colors.blue.shade50)),
-                onPressed: () {
-                  //changePhrase();
-                },
-
-                //() {
-                //setState(() {
-
-                //_phraseShow() = new;
-                //tense:
-                //widget.tense.translation = showTranslation;
-                //_openTranslation() = _showTranslation();
-                //});
-                //},
+                onPressed: () => setState(() {
+                  tense = _getRandomTense();
+                }),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.min,
