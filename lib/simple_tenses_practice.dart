@@ -1,10 +1,8 @@
+import 'package:csv/csv.dart';
 import 'package:esc/models/tense.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'choose_train.dart';
-import 'package:csv/csv.dart';
-import 'package:esc/models/tense.dart';
 
 class SimpleTensesPractice extends StatefulWidget {
   final Tense tense;
@@ -23,7 +21,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   double _currentSliderValue = 10;
 
   Widget _showTranslation() => Text(
-        '$showTranslation',
+        showTranslation,
         textAlign: TextAlign.center,
         style: GoogleFonts.roboto(
             fontSize: 28, fontWeight: FontWeight.w700, color: Colors.black),
@@ -53,7 +51,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   }
 
   Widget _openTranslation() => Container(
-        margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
         child: FittedBox(
           child: Text(
             widget.tense.translation,
@@ -65,7 +63,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       );
 
   Widget _phraseShow() => Container(
-        margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
         child: FittedBox(
           child: Text(
             widget.tense.phrase,
@@ -331,7 +329,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         child: Container(
           color: Colors.blue.shade50,
           width: double.infinity,
-          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.min,

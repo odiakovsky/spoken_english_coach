@@ -14,8 +14,8 @@ class ChooseTrain extends StatefulWidget {
 
 class _ChooseTrainState extends State<ChooseTrain> {
   final styleButton = ButtonStyle(
-    padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
-    minimumSize: MaterialStateProperty.all(Size(180, 30)),
+    padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(10)),
+    minimumSize: MaterialStateProperty.all(const Size(180, 30)),
     elevation: MaterialStateProperty.all(10),
     backgroundColor: MaterialStateProperty.all(Colors.white),
     foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
@@ -75,7 +75,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                   height: 30,
                 ),
                 Container(
-                  constraints: BoxConstraints.loose(Size(450, 140)),
+                  constraints: BoxConstraints.loose(const Size(450, 140)),
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -128,7 +128,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                         Image.asset(
                                           'assets/icons/textbook.png',
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 15,
                                         ),
                                         Text(
@@ -139,7 +139,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                               fontWeight: FontWeight.w300,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 20,
                                         ),
                                         Image.asset(
@@ -148,7 +148,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   ElevatedButton(
@@ -173,7 +173,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                         Image.asset(
                                           'assets/icons/speaking.png',
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Text(
@@ -184,7 +184,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                               fontWeight: FontWeight.w300,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Image.asset(
@@ -206,7 +206,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                   height: 10,
                 ),
                 Container(
-                  constraints: BoxConstraints.loose(Size(450, 140)),
+                  constraints: BoxConstraints.loose(const Size(450, 140)),
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -257,7 +257,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                         Image.asset(
                                           'assets/icons/textbook.png',
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 15,
                                         ),
                                         Text(
@@ -268,7 +268,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                               fontWeight: FontWeight.w300,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 20,
                                         ),
                                         Image.asset(
@@ -277,7 +277,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   ElevatedButton(
@@ -291,7 +291,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                         Image.asset(
                                           'assets/icons/speaking.png',
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Text(
@@ -302,7 +302,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                               fontWeight: FontWeight.w300,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Image.asset(
@@ -324,7 +324,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                   height: 10,
                 ),
                 Container(
-                  constraints: BoxConstraints.loose(Size(450, 140)),
+                  constraints: BoxConstraints.loose(const Size(450, 140)),
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -387,7 +387,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                         Image.asset(
                                           'assets/icons/textbook.png',
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 15,
                                         ),
                                         Text(
@@ -398,7 +398,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                               fontWeight: FontWeight.w300,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 20,
                                         ),
                                         Image.asset(
@@ -407,7 +407,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   ElevatedButton(
@@ -421,7 +421,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                         Image.asset(
                                           'assets/icons/speaking.png',
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Text(
@@ -432,7 +432,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                               fontWeight: FontWeight.w300,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Image.asset(
@@ -454,7 +454,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                   height: 10,
                 ),
                 Container(
-                  constraints: BoxConstraints.loose(Size(450, 140)),
+                  constraints: BoxConstraints.loose(const Size(450, 140)),
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -505,7 +505,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                         Image.asset(
                                           'assets/icons/textbook.png',
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 15,
                                         ),
                                         Text(
@@ -516,7 +516,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                               fontWeight: FontWeight.w300,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 20,
                                         ),
                                         Image.asset(
@@ -525,7 +525,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   ElevatedButton(
@@ -539,7 +539,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                         Image.asset(
                                           'assets/icons/speaking.png',
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Text(
@@ -550,7 +550,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                               fontWeight: FontWeight.w300,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Image.asset(
@@ -572,7 +572,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                   height: 10,
                 ),
                 Container(
-                  constraints: BoxConstraints.loose(Size(450, 140)),
+                  constraints: BoxConstraints.loose(const Size(450, 140)),
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -623,7 +623,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                         Image.asset(
                                           'assets/icons/textbook.png',
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 15,
                                         ),
                                         Text(
@@ -634,7 +634,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                               fontWeight: FontWeight.w300,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 20,
                                         ),
                                         Image.asset(
@@ -643,7 +643,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   ElevatedButton(
@@ -657,7 +657,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                         Image.asset(
                                           'assets/icons/speaking.png',
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Text(
@@ -668,7 +668,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                               fontWeight: FontWeight.w300,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Image.asset(
