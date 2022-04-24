@@ -331,24 +331,14 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         child: Container(
           color: Colors.blue.shade50,
           width: double.infinity,
+          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton(
-                style: ButtonStyle(
-                  minimumSize: MaterialStateProperty.all(const Size(180, 50)),
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.blue.shade50),
-                  foregroundColor:
-                      MaterialStateProperty.all(Colors.grey.shade700),
-                  overlayColor: MaterialStateProperty.all(
-                      Colors.lightBlueAccent.shade100),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                  ),
-                ),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.blue.shade50)),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -379,20 +369,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               const SizedBox(
                 width: 15,
               ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  minimumSize: MaterialStateProperty.all(const Size(180, 50)),
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.blue.shade50),
-                  foregroundColor:
-                      MaterialStateProperty.all(Colors.grey.shade700),
-                  overlayColor: MaterialStateProperty.all(
-                      Colors.lightBlueAccent.shade100),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                  ),
-                ),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.blue.shade50)),
                 onPressed: () {
                   //changePhrase();
                 },
