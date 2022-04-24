@@ -52,19 +52,27 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
     return tenses;
   }
 
-  Widget _openTranslation() => Text(
-        widget.tense.translation,
-        textAlign: TextAlign.center,
-        style: GoogleFonts.roboto(
-            fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
+  Widget _openTranslation() => Container(
+        margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        child: FittedBox(
+          child: Text(
+            widget.tense.translation,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.roboto(
+                fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
+          ),
+        ),
       );
 
   Widget _phraseShow() => Container(
-        child: Text(
-          widget.tense.phrase,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.roboto(
-              fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
+        margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        child: FittedBox(
+          child: Text(
+            widget.tense.phrase,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.roboto(
+                fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
+          ),
         ),
       );
 
