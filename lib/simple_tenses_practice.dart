@@ -1,80 +1,28 @@
 import 'package:esc/models/tense.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'choose_train.dart';
-import 'package:csv/csv.dart';
-import 'package:esc/models/tense.dart';
 
 class SimpleTensesPractice extends StatefulWidget {
-  final Tense tense;
-  const SimpleTensesPractice({Key? key, required this.tense}) : super(key: key);
+  final List<Tense> tenses;
+
+  const SimpleTensesPractice({Key? key, required this.tenses})
+      : super(key: key);
 
   @override
   State<SimpleTensesPractice> createState() => _SimpleTensesPracticeState();
 }
 
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
-  late final List<Tense> _tenses;
-
-  String showTranslation = 'Показать перевод';
-  String showVerb = 'Показать глагол';
-  String showVerbTranslation = '';
+  late Tense tense;
   double _currentSliderValue = 10;
 
-  Widget _showTranslation() => Text(
-        '$showTranslation',
-        textAlign: TextAlign.center,
-        style: GoogleFonts.roboto(
-            fontSize: 28, fontWeight: FontWeight.w700, color: Colors.black),
-      );
+  Tense _getRandomTense() => (widget.tenses..shuffle()).first;
 
   @override
   void initState() {
     super.initState();
-    // В initState нельзя использовать асинхронные функции, поэтому используем
-    // конструкцию then()
-    loadTenses().then((value) => _tenses = value);
+    tense = _getRandomTense();
   }
-
-  Future<List<Tense>> loadTenses() async {
-    // Читаем csv-файл как строку
-    final csvString =
-        await rootBundle.loadString('assets/csv/simple_tenses_practice.csv');
-    // Конвертируем csv-строку
-    final rows =
-        const CsvToListConverter().convert(csvString, fieldDelimiter: ";");
-    // Генерируем модельки Tense из csv
-    final tenses = <Tense>[];
-    for (final row in rows) {
-      tenses.add(Tense.fromCSVRow(row.cast<String>()));
-    }
-    return tenses;
-  }
-
-  Widget _openTranslation() => Container(
-        margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-        child: FittedBox(
-          child: Text(
-            widget.tense.translation,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.roboto(
-                fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
-          ),
-        ),
-      );
-
-  Widget _phraseShow() => Container(
-        margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-        child: FittedBox(
-          child: Text(
-            widget.tense.phrase,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.roboto(
-                fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
-          ),
-        ),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -180,57 +128,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       const SizedBox(
         height: 15,
       ),
-      ElevatedButton(
-        style: ButtonStyle(
-          padding: MaterialStateProperty.all<EdgeInsets>(
-              const EdgeInsets.fromLTRB(50, 30, 50, 35)),
-          //fixedSize: MaterialStateProperty.all(const Size(350, 100)),
-
-          minimumSize: MaterialStateProperty.all(const Size(180, 50)),
-          //elevation: MaterialStateProperty.all(10),
-          backgroundColor: MaterialStateProperty.all(Colors.white),
-          foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
-          overlayColor:
-              MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          ),
-        ),
-        onPressed: () {
-          setState(
-            () {
-              showVerb = widget.tense.verb;
-              showVerbTranslation = widget.tense.verbTranslation;
-            },
-          );
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              'assets/icons/clue.png',
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Text(
-              '$showVerb\n$showVerbTranslation',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.black),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Image.asset(
-              'assets/icons/forward.png',
-            ),
-          ],
-        ),
-      ),
+      ShowVerb(tense: tense),
       const SizedBox(
         height: 40,
       ),
@@ -243,7 +141,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       const SizedBox(
         height: 10,
       ),
-      _phraseShow(),
+      ShowPhrase(phrase: tense.phrase),
       Container(
         padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
         alignment: Alignment.bottomRight,
@@ -266,27 +164,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       const SizedBox(
         height: 10,
       ),
-      ElevatedButton(
-        style: ButtonStyle(
-          padding: MaterialStateProperty.all<EdgeInsets>(
-              const EdgeInsets.fromLTRB(50, 30, 50, 30)),
-          //minimumSize: MaterialStateProperty.all(const Size(180, 50)),
-          fixedSize: MaterialStateProperty.all(const Size(350, 100)),
-          backgroundColor: MaterialStateProperty.all(Colors.grey.shade400),
-          foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
-          overlayColor:
-              MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          ),
-        ),
-        onPressed: () {
-          setState(() {
-            showTranslation = widget.tense.translation;
-          });
-        },
-        child: _showTranslation(),
-      ),
+      ShowTranslation(translation: tense.translation),
       const SizedBox(
         height: 10,
       ),
@@ -331,7 +209,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         child: Container(
           color: Colors.blue.shade50,
           width: double.infinity,
-          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.min,
@@ -372,19 +250,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
                     side: BorderSide(color: Colors.blue.shade50)),
-                onPressed: () {
-                  //changePhrase();
-                },
-
-                //() {
-                //setState(() {
-
-                //_phraseShow() = new;
-                //tense:
-                //widget.tense.translation = showTranslation;
-                //_openTranslation() = _showTranslation();
-                //});
-                //},
+                onPressed: () => setState(() {
+                  tense = _getRandomTense();
+                }),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.min,
@@ -423,6 +291,137 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             children: children2,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ShowPhrase extends StatelessWidget {
+  final String phrase;
+
+  const ShowPhrase({
+    Key? key,
+    required this.phrase,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+      child: FittedBox(
+        child: Text(
+          phrase,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.roboto(
+              fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
+        ),
+      ),
+    );
+  }
+}
+
+class ShowVerb extends StatefulWidget {
+  final Tense tense;
+
+  const ShowVerb({Key? key, required this.tense}) : super(key: key);
+
+  @override
+  State<ShowVerb> createState() => _ShowVerbState();
+}
+
+class _ShowVerbState extends State<ShowVerb> {
+  bool isVerbHidden = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsets>(
+            const EdgeInsets.fromLTRB(50, 30, 50, 35)),
+        minimumSize: MaterialStateProperty.all(const Size(180, 50)),
+        backgroundColor: MaterialStateProperty.all(Colors.white),
+        foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
+        overlayColor:
+            MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        ),
+      ),
+      onPressed: () {
+        setState(
+          () {
+            isVerbHidden = !isVerbHidden;
+          },
+        );
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            'assets/icons/clue.png',
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          Text(
+            isVerbHidden
+                ? 'Показать глагол '
+                : '${widget.tense.verb}\n${widget.tense.verbTranslation}',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.roboto(
+                fontSize: 18, fontWeight: FontWeight.w300, color: Colors.black),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          Image.asset(
+            'assets/icons/forward.png',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ShowTranslation extends StatefulWidget {
+  final String translation;
+
+  const ShowTranslation({Key? key, required this.translation})
+      : super(key: key);
+
+  @override
+  State<ShowTranslation> createState() => _ShowTranslationState();
+}
+
+class _ShowTranslationState extends State<ShowTranslation> {
+  bool isTranslationHidden = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsets>(
+            const EdgeInsets.fromLTRB(50, 30, 50, 30)),
+        fixedSize: MaterialStateProperty.all(const Size(350, 100)),
+        backgroundColor: MaterialStateProperty.all(Colors.grey.shade400),
+        foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
+        overlayColor:
+            MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+      ),
+      onPressed: () {
+        setState(() {
+          isTranslationHidden = !isTranslationHidden;
+        });
+      },
+      child: Text(
+        isTranslationHidden ? 'Показать превод' : widget.translation,
+        textAlign: TextAlign.center,
+        style: GoogleFonts.roboto(
+            fontSize: 28, fontWeight: FontWeight.w700, color: Colors.black),
       ),
     );
   }
