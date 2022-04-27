@@ -15,6 +15,8 @@ class SimpleTensesPractice extends StatefulWidget {
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   late Tense tense;
   double _currentSliderValue = 10;
+  bool isVerbHidden = true;
+  bool isTranslationHidden = true;
 
   Tense _getRandomTense() => (widget.tenses..shuffle()).first;
 
@@ -128,7 +130,15 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       const SizedBox(
         height: 15,
       ),
-      ShowVerb(tense: tense),
+      ShowVerb(
+        tense: tense,
+        isVerbHidden: isVerbHidden,
+        onPressed: (isHidden) {
+          setState(() {
+            isVerbHidden = isHidden;
+          });
+        },
+      ),
       const SizedBox(
         height: 40,
       ),
@@ -164,7 +174,15 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       const SizedBox(
         height: 10,
       ),
-      ShowTranslation(translation: tense.translation),
+      ShowTranslation(
+        translation: tense.translation,
+        isTranslationHidden: isTranslationHidden,
+        onPressed: (isHidden) {
+          setState(() {
+            isTranslationHidden = isHidden;
+          });
+        },
+      ),
       const SizedBox(
         height: 10,
       ),
@@ -251,6 +269,8 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                 style: OutlinedButton.styleFrom(
                     side: BorderSide(color: Colors.blue.shade50)),
                 onPressed: () => setState(() {
+                  isVerbHidden = true;
+                  isTranslationHidden = true;
                   tense = _getRandomTense();
                 }),
                 child: Row(
@@ -320,17 +340,17 @@ class ShowPhrase extends StatelessWidget {
   }
 }
 
-class ShowVerb extends StatefulWidget {
+class ShowVerb extends StatelessWidget {
   final Tense tense;
+  final bool isVerbHidden;
+  final Function(bool) onPressed;
 
-  const ShowVerb({Key? key, required this.tense}) : super(key: key);
-
-  @override
-  State<ShowVerb> createState() => _ShowVerbState();
-}
-
-class _ShowVerbState extends State<ShowVerb> {
-  bool isVerbHidden = true;
+  const ShowVerb({
+    Key? key,
+    required this.tense,
+    required this.isVerbHidden,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -342,18 +362,12 @@ class _ShowVerbState extends State<ShowVerb> {
         backgroundColor: MaterialStateProperty.all(Colors.white),
         foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
         overlayColor:
-            MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
+        MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         ),
       ),
-      onPressed: () {
-        setState(
-          () {
-            isVerbHidden = !isVerbHidden;
-          },
-        );
-      },
+      onPressed: () => onPressed(!isVerbHidden),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.min,
@@ -367,7 +381,7 @@ class _ShowVerbState extends State<ShowVerb> {
           Text(
             isVerbHidden
                 ? 'Показать глагол '
-                : '${widget.tense.verb}\n${widget.tense.verbTranslation}',
+                : '${tense.verb}\n${tense.verbTranslation}',
             textAlign: TextAlign.center,
             style: GoogleFonts.roboto(
                 fontSize: 18, fontWeight: FontWeight.w300, color: Colors.black),
@@ -384,18 +398,17 @@ class _ShowVerbState extends State<ShowVerb> {
   }
 }
 
-class ShowTranslation extends StatefulWidget {
+class ShowTranslation extends StatelessWidget {
   final String translation;
+  final bool isTranslationHidden;
+  final Function(bool) onPressed;
 
-  const ShowTranslation({Key? key, required this.translation})
-      : super(key: key);
-
-  @override
-  State<ShowTranslation> createState() => _ShowTranslationState();
-}
-
-class _ShowTranslationState extends State<ShowTranslation> {
-  bool isTranslationHidden = true;
+  const ShowTranslation({
+    Key? key,
+    required this.translation,
+    required this.isTranslationHidden,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -412,13 +425,9 @@ class _ShowTranslationState extends State<ShowTranslation> {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         ),
       ),
-      onPressed: () {
-        setState(() {
-          isTranslationHidden = !isTranslationHidden;
-        });
-      },
+      onPressed: () => onPressed(!isTranslationHidden),
       child: Text(
-        isTranslationHidden ? 'Показать превод' : widget.translation,
+        isTranslationHidden ? 'Показать превод' : translation,
         textAlign: TextAlign.center,
         style: GoogleFonts.roboto(
             fontSize: 28, fontWeight: FontWeight.w700, color: Colors.black),
