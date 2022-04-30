@@ -51,7 +51,10 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                       borderRadius: BorderRadius.circular(15)),
                 ),
               ),
-              onPressed: null,
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/theory_of_simple_tenses', (route) => true);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 mainAxisSize: MainAxisSize.min,
