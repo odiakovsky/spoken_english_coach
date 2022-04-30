@@ -4,7 +4,6 @@ import 'package:esc/simple_tenses_practice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:esc/theory_of_simple_tenses.dart';
 
 class ChooseTrain extends StatefulWidget {
   const ChooseTrain({Key? key}) : super(key: key);
