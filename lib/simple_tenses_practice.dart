@@ -194,7 +194,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             onChanged: (bool value) {},
           ),
           Text(
-            'Установить задержку',
+            'Автоматический режим',
             textAlign: TextAlign.center,
             style: GoogleFonts.roboto(
                 fontSize: 14, fontWeight: FontWeight.w300, color: Colors.black),
@@ -362,7 +362,7 @@ class ShowVerb extends StatelessWidget {
         backgroundColor: MaterialStateProperty.all(Colors.white),
         foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
         overlayColor:
-        MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
+            MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         ),
