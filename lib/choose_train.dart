@@ -4,6 +4,7 @@ import 'package:esc/simple_tenses_practice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'style_button.dart';
 
 class ChooseTrain extends StatefulWidget {
   const ChooseTrain({Key? key}) : super(key: key);
@@ -13,18 +14,6 @@ class ChooseTrain extends StatefulWidget {
 }
 
 class _ChooseTrainState extends State<ChooseTrain> {
-  final styleButton = ButtonStyle(
-    padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(10)),
-    minimumSize: MaterialStateProperty.all(const Size(180, 30)),
-    elevation: MaterialStateProperty.all(10),
-    backgroundColor: MaterialStateProperty.all(Colors.white),
-    foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
-    overlayColor: MaterialStateProperty.all(Colors.lightBlue.shade50),
-    shape: MaterialStateProperty.all(
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    ),
-  );
-
   // Поле, в которое будем единожды считывать все Tense
   late final List<Tense> _tenses;
 
@@ -118,7 +107,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ElevatedButton(
-                                    style: styleButton,
+                                    style: styleButtonTheoryAndPractice,
                                     onPressed: () {
                                       Navigator.pushNamedAndRemoveUntil(
                                           context,
@@ -157,7 +146,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                     width: 15,
                                   ),
                                   ElevatedButton(
-                                    style: styleButton,
+                                    style: styleButtonTheoryAndPractice,
                                     onPressed: () async {
                                       Navigator.push(
                                         context,
@@ -252,7 +241,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ElevatedButton(
-                                    style: styleButton,
+                                    style: styleButtonTheoryAndPractice,
                                     onPressed: null,
                                     child: Row(
                                       mainAxisAlignment:
@@ -286,7 +275,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                     width: 15,
                                   ),
                                   ElevatedButton(
-                                    style: styleButton,
+                                    style: styleButtonTheoryAndPractice,
                                     onPressed: null,
                                     child: Row(
                                       mainAxisAlignment:
@@ -382,7 +371,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ElevatedButton(
-                                    style: styleButton,
+                                    style: styleButtonTheoryAndPractice,
                                     onPressed: null,
                                     child: Row(
                                       mainAxisAlignment:
@@ -416,7 +405,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                     width: 15,
                                   ),
                                   ElevatedButton(
-                                    style: styleButton,
+                                    style: styleButtonTheoryAndPractice,
                                     onPressed: null,
                                     child: Row(
                                       mainAxisAlignment:
@@ -500,7 +489,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ElevatedButton(
-                                    style: styleButton,
+                                    style: styleButtonTheoryAndPractice,
                                     onPressed: null,
                                     child: Row(
                                       mainAxisAlignment:
@@ -534,7 +523,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                     width: 15,
                                   ),
                                   ElevatedButton(
-                                    style: styleButton,
+                                    style: styleButtonTheoryAndPractice,
                                     onPressed: null,
                                     child: Row(
                                       mainAxisAlignment:
@@ -618,7 +607,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ElevatedButton(
-                                    style: styleButton,
+                                    style: styleButtonTheoryAndPractice,
                                     onPressed: null,
                                     child: Row(
                                       mainAxisAlignment:
@@ -652,7 +641,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
                                     width: 15,
                                   ),
                                   ElevatedButton(
-                                    style: styleButton,
+                                    style: styleButtonTheoryAndPractice,
                                     onPressed: null,
                                     child: Row(
                                       mainAxisAlignment:

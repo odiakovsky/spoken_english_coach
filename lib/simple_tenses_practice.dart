@@ -1,6 +1,10 @@
 import 'package:esc/models/tense.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'style_button.dart';
+import 'show_phrase.dart';
+import 'show_verb.dart';
+import 'show_translation.dart';
 
 class SimpleTensesPractice extends StatefulWidget {
   final List<Tense> tenses;
@@ -38,19 +42,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(const Size(180, 50)),
-                elevation: MaterialStateProperty.all(10),
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                foregroundColor:
-                    MaterialStateProperty.all(Colors.grey.shade700),
-                overlayColor:
-                    MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
+              style: styleButtonTheoryAndPractice,
               onPressed: () {
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/theory_of_simple_tenses', (route) => true);
@@ -86,19 +78,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               width: 15,
             ),
             ElevatedButton(
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(const Size(180, 50)),
-                elevation: MaterialStateProperty.all(10),
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                foregroundColor:
-                    MaterialStateProperty.all(Colors.grey.shade700),
-                overlayColor:
-                    MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
+              style: styleButtonTheoryAndPractice,
               onPressed: null,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -314,126 +294,6 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             children: children2,
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ShowPhrase extends StatelessWidget {
-  final String phrase;
-
-  const ShowPhrase({
-    Key? key,
-    required this.phrase,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-      child: FittedBox(
-        child: Text(
-          phrase,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.roboto(
-              fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
-        ),
-      ),
-    );
-  }
-}
-
-class ShowVerb extends StatelessWidget {
-  final Tense tense;
-  final bool isVerbHidden;
-  final Function(bool) onPressed;
-
-  const ShowVerb({
-    Key? key,
-    required this.tense,
-    required this.isVerbHidden,
-    required this.onPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        padding: MaterialStateProperty.all<EdgeInsets>(
-            const EdgeInsets.fromLTRB(50, 30, 50, 35)),
-        minimumSize: MaterialStateProperty.all(const Size(180, 50)),
-        backgroundColor: MaterialStateProperty.all(Colors.white),
-        foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
-        overlayColor:
-            MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        ),
-      ),
-      onPressed: () => onPressed(!isVerbHidden),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image.asset(
-            'assets/icons/clue.png',
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Text(
-            isVerbHidden
-                ? 'Показать глагол '
-                : '${tense.verb}\n${tense.verbTranslation}',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.roboto(
-                fontSize: 18, fontWeight: FontWeight.w300, color: Colors.black),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Image.asset(
-            'assets/icons/forward.png',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ShowTranslation extends StatelessWidget {
-  final String translation;
-  final bool isTranslationHidden;
-  final Function(bool) onPressed;
-
-  const ShowTranslation({
-    Key? key,
-    required this.translation,
-    required this.isTranslationHidden,
-    required this.onPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        padding: MaterialStateProperty.all<EdgeInsets>(
-            const EdgeInsets.fromLTRB(50, 30, 50, 30)),
-        fixedSize: MaterialStateProperty.all(const Size(350, 100)),
-        backgroundColor: MaterialStateProperty.all(Colors.grey.shade400),
-        foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
-        overlayColor:
-            MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        ),
-      ),
-      onPressed: () => onPressed(!isTranslationHidden),
-      child: Text(
-        isTranslationHidden ? 'Показать перевод' : translation,
-        textAlign: TextAlign.center,
-        style: GoogleFonts.roboto(
-            fontSize: 28, fontWeight: FontWeight.w700, color: Colors.black),
       ),
     );
   }

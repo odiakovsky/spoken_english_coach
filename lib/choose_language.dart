@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'style_button.dart';
 
-
 class SpokenEnglishCoach extends StatelessWidget {
   const SpokenEnglishCoach({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.grey.shade100,
@@ -40,9 +38,10 @@ class SpokenEnglishCoach extends StatelessWidget {
                   height: 40,
                 ),
                 ElevatedButton(
-                  style: styleButton,
+                  style: styleButtonChooseLanguage,
                   onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(context, '/choose_train', (route) => true);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/choose_train', (route) => true);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +74,7 @@ class SpokenEnglishCoach extends StatelessWidget {
                   height: 20,
                 ),
                 ElevatedButton(
-                  style: styleButton,
+                  style: styleButtonChooseLanguage,
                   onPressed: null,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -109,7 +108,7 @@ class SpokenEnglishCoach extends StatelessWidget {
                   height: 20,
                 ),
                 ElevatedButton(
-                  style: styleButton,
+                  style: styleButtonChooseLanguage,
                   onPressed: null,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -143,7 +142,7 @@ class SpokenEnglishCoach extends StatelessWidget {
                   height: 20,
                 ),
                 ElevatedButton(
-                  style: styleButton,
+                  style: styleButtonChooseLanguage,
                   onPressed: null,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -177,7 +176,7 @@ class SpokenEnglishCoach extends StatelessWidget {
                   height: 20,
                 ),
                 ElevatedButton(
-                  style: styleButton,
+                  style: styleButtonChooseLanguage,
                   onPressed: null,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
