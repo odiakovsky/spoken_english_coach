@@ -1,45 +1,35 @@
-import 'dart:math';
-
-import 'package:esc/style_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:esc/dictionary_verbs.dart';
-
-class CardOfVerb extends StatelessWidget {
-  const CardOfVerb({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return cardOfVerb;
-  }
-}
 
 var cardOfVerb = Container(
   constraints: BoxConstraints(
-      maxWidth: double.maxFinite,
-      minWidth: double.minPositive,
+      maxWidth: double.infinity,
+      minWidth: 400,
       maxHeight: double.infinity,
       minHeight: double.minPositive),
   child: Card(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    color: Colors.yellow.shade50,
-    elevation: 10,
-    child: Stack(
-      alignment: Alignment.topRight,
-      children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          child: Column(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    color: Colors.white,
+    child: Container(
+      padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          CheckBox(),
+          const SizedBox(
+            width: 100,
+          ),
+          Column(
             children: [
               Text(
-                'Глагол to be',
+                'любить',
                 style: GoogleFonts.roboto(
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
                     color: Colors.grey.shade900),
               ),
               Text(
-                '(быть, находиться)',
+                'to love (loved)',
                 style: GoogleFonts.roboto(
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
@@ -47,8 +37,79 @@ var cardOfVerb = Container(
               ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
+    ),
+  ),
+);
+
+class CheckBox extends StatefulWidget {
+  const CheckBox({Key? key}) : super(key: key);
+
+  @override
+  State<CheckBox> createState() => _CheckBoxState();
+}
+
+class _CheckBoxState extends State<CheckBox> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return Colors.blue;
+      }
+      return Colors.blue.shade300;
+    }
+
+    return Checkbox(
+      checkColor: Colors.white,
+      fillColor: MaterialStateProperty.resolveWith(getColor),
+      value: isChecked,
+      onChanged: (bool? value) {
+        setState(() {
+          isChecked = value!;
+        });
+      },
+    );
+  }
+}
+
+var checkAll = Container(
+  constraints: BoxConstraints(
+      maxWidth: double.infinity,
+      minWidth: 400,
+      maxHeight: double.infinity,
+      minHeight: double.minPositive),
+  child: Card(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    color: Colors.grey.shade300,
+    child: Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          CheckBox(),
+          const SizedBox(
+            width: 100,
+          ),
+          Column(
+            children: [
+              Text(
+                'Выбрать все',
+                style: GoogleFonts.roboto(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.grey.shade900),
+              ),
+            ],
+          ),
+        ],
+      ),
     ),
   ),
 );
