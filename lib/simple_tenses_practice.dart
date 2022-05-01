@@ -430,7 +430,7 @@ class ShowTranslation extends StatelessWidget {
       ),
       onPressed: () => onPressed(!isTranslationHidden),
       child: Text(
-        isTranslationHidden ? 'Показать превод' : translation,
+        isTranslationHidden ? 'Показать перевод' : translation,
         textAlign: TextAlign.center,
         style: GoogleFonts.roboto(
             fontSize: 28, fontWeight: FontWeight.w700, color: Colors.black),
