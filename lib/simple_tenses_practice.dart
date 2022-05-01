@@ -5,6 +5,7 @@ import 'style_button.dart';
 import 'show_phrase.dart';
 import 'show_verb.dart';
 import 'show_translation.dart';
+import 'dictionary_verbs.dart';
 
 class SimpleTensesPractice extends StatefulWidget {
   final List<Tense> tenses;
@@ -79,7 +80,10 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             ),
             ElevatedButton(
               style: styleButtonTheoryAndPractice,
-              onPressed: null,
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/dictionary_verbs', (route) => true);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 mainAxisSize: MainAxisSize.min,
