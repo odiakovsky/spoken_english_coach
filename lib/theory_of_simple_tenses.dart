@@ -21,7 +21,7 @@ class TheoryOfSimpleTenses extends StatelessWidget {
     );
 
     var text3 = Text(
-      '       Для начала тренировки вам необходимо выучить основные местоимения и постараться понять как работает глагол в английском языке',
+      '       Для начала тренировки вам необходимо выучить основные местоимения и постараться понять, как работает глагол в английском языке',
       textAlign: TextAlign.justify,
       style: GoogleFonts.roboto(
           fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
