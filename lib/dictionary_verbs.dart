@@ -4,8 +4,11 @@ import 'package:esc/models/tense.dart';
 import 'package:esc/card_of_verb.dart';
 
 class DictionaryVerbs extends StatefulWidget {
+  final List<Tense> tenses;
+
   const DictionaryVerbs({
     Key? key,
+    required this.tenses,
   }) : super(key: key);
 
   @override

@@ -81,8 +81,14 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             ElevatedButton(
               style: styleButtonTheoryAndPractice,
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/dictionary_verbs', (route) => true);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        DictionaryVerbs(tenses: widget.tenses.sublist(0, 15)),
+                  ),
+                  (route) => true,
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
