@@ -43,15 +43,12 @@ var cardOfVerb = Container(
   ),
 );
 
-class CheckBox extends StatefulWidget {
-  const CheckBox({Key? key}) : super(key: key);
+class CheckBox extends StatelessWidget {
+  final VoidCallback onCheck;
+  final bool isChecked;
 
-  @override
-  State<CheckBox> createState() => _CheckBoxState();
-}
-
-class _CheckBoxState extends State<CheckBox> {
-  bool isChecked = false;
+  const CheckBox({Key? key, required this.onCheck, required this.isChecked})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +69,7 @@ class _CheckBoxState extends State<CheckBox> {
       fillColor: MaterialStateProperty.resolveWith(getColor),
       value: isChecked,
       onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
+        onCheck();
       },
     );
   }
