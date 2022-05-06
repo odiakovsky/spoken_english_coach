@@ -1,47 +1,61 @@
+import 'package:esc/models/tense.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-var cardOfVerb = Container(
-  constraints: BoxConstraints(
-      maxWidth: double.infinity,
-      minWidth: 400,
-      maxHeight: double.infinity,
-      minHeight: double.minPositive),
-  child: Card(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    color: Colors.white,
-    child: Container(
-      padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CheckBox(),
-          const SizedBox(
-            width: 100,
-          ),
-          Column(
-            children: [
-              Text(
-                'любить',
-                style: GoogleFonts.roboto(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey.shade900),
+class VerbCard extends StatelessWidget {
+  final void Function(Tense) onCheck;
+  final Tense tense;
+  final bool isChecked;
+
+  const VerbCard({
+    Key? key,
+    required this.tense,
+    required this.onCheck,
+    required this.isChecked,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      color: Colors.white,
+      child: Container(
+        padding: const EdgeInsets.all(5.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            CheckBox(
+              isChecked: isChecked,
+              onCheck: () => onCheck(tense),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    tense.verb,
+                    style: GoogleFonts.roboto(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.grey.shade900,
+                    ),
+                  ),
+                  Text(
+                    tense.verbTranslation,
+                    style: GoogleFonts.roboto(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.grey.shade900,
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                'to love (loved)',
-                style: GoogleFonts.roboto(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey.shade900),
-              ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
-    ),
-  ),
-);
+    );
+  }
+}
 
 class CheckBox extends StatelessWidget {
   final VoidCallback onCheck;
