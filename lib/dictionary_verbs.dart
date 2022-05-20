@@ -1,14 +1,16 @@
+import 'package:esc/card_of_verb.dart';
+import 'package:esc/models/tense.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:esc/models/tense.dart';
-import 'package:esc/card_of_verb.dart';
 
 class DictionaryVerbs extends StatefulWidget {
   final List<Tense> tenses;
+  final void Function(List<Tense>) onSelected;
 
   const DictionaryVerbs({
     Key? key,
     required this.tenses,
+    required this.onSelected,
   }) : super(key: key);
 
   @override
@@ -81,7 +83,10 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: () {
+          widget.onSelected(selectedTenses);
+          Navigator.of(context).pop();
+        },
         child: Icon(Icons.arrow_forward_ios_outlined),
       ),
     );

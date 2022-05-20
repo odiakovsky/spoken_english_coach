@@ -19,15 +19,17 @@ class SimpleTensesPractice extends StatefulWidget {
 
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   late Tense tense;
+  late List<Tense> tenses;
   double _currentSliderValue = 10;
   bool isVerbHidden = true;
   bool isTranslationHidden = true;
 
-  Tense _getRandomTense() => (widget.tenses..shuffle()).first;
+  Tense _getRandomTense() => (tenses..shuffle()).first;
 
   @override
   void initState() {
     super.initState();
+    tenses = widget.tenses;
     tense = _getRandomTense();
   }
 
@@ -85,7 +87,14 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        DictionaryVerbs(tenses: widget.tenses.sublist(0, 15)),
+                        // FIXME: Здесь нужна пагинация
+                        DictionaryVerbs(
+                      tenses: widget.tenses.sublist(0, 15),
+                      onSelected: (tenses) => setState(() {
+                        this.tenses = tenses;
+                        tense = _getRandomTense();
+                      }),
+                    ),
                   ),
                   (route) => true,
                 );
