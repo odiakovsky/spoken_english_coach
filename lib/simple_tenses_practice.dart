@@ -86,10 +86,8 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        // FIXME: Здесь нужна пагинация
-                        DictionaryVerbs(
-                      tenses: widget.tenses.sublist(0, 15),
+                    builder: (context) => DictionaryVerbs(
+                      tenses: widget.tenses,
                       onSelected: (tenses) => setState(() {
                         this.tenses = tenses;
                         tense = _getRandomTense();

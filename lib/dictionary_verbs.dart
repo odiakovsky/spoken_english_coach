@@ -19,12 +19,29 @@ class DictionaryVerbs extends StatefulWidget {
 
 class _DictionaryVerbsState extends State<DictionaryVerbs> {
   bool allChecked = true;
+  late List<Tense> currentTenses;
   late List<Tense> selectedTenses;
+  late ScrollController _controller;
+  int limit = 15;
+  int offset = 0;
+
+  void _paginate() {
+    if ((_controller.position.pixels >=
+            _controller.position.maxScrollExtent - 50) &&
+        (currentTenses.length < widget.tenses.length)) {
+      setState(() {
+        offset += limit;
+        currentTenses.addAll(widget.tenses.sublist(offset, offset + limit));
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    currentTenses = List<Tense>.from(widget.tenses);
     selectedTenses = List<Tense>.from(widget.tenses);
+    _controller = ScrollController()..addListener(_paginate);
   }
 
   @override
@@ -64,6 +81,7 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
             //случайный выбор был бы из 18 вариантов.
             Expanded(
               child: ListView.builder(
+                controller: _controller,
                 physics: BouncingScrollPhysics(),
                 itemCount: widget.tenses.length,
                 itemBuilder: (context, index) => VerbCard(
