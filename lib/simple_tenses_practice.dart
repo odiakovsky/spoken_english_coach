@@ -1,11 +1,11 @@
+import 'package:esc/dictionary_verbs.dart';
 import 'package:esc/models/tense.dart';
+import 'package:esc/show_phrase.dart';
+import 'package:esc/show_translation.dart';
+import 'package:esc/show_verb.dart';
+import 'package:esc/style_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'style_button.dart';
-import 'show_phrase.dart';
-import 'show_verb.dart';
-import 'show_translation.dart';
-import 'dictionary_verbs.dart';
 
 class SimpleTensesPractice extends StatefulWidget {
   final List<Tense> tenses;
