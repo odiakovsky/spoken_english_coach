@@ -87,11 +87,13 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
                 itemBuilder: (context, index) => VerbCard(
                   tense: widget.tenses[index],
                   isChecked: selectedTenses.contains(widget.tenses[index]),
-                  onCheck: (verb) => setState(() {
-                    if (selectedTenses.contains(verb)) {
-                      selectedTenses.remove(verb);
+                  onCheck: (tense) => setState(() {
+                    if (selectedTenses.contains(tense)) {
+                      selectedTenses.removeWhere((t) => t.verb == tense.verb);
                     } else {
-                      selectedTenses.add(verb);
+                      selectedTenses.addAll(
+                        widget.tenses.where((t) => tense.verb == t.verb),
+                      );
                     }
                   }),
                 ),
