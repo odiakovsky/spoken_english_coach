@@ -22,16 +22,21 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
   late List<Tense> currentTenses;
   late List<Tense> selectedTenses;
   late ScrollController _controller;
-  int limit = 15;
+  int limit = 100;
   int offset = 0;
 
   void _paginate() {
     if ((_controller.position.pixels >=
-            _controller.position.maxScrollExtent - 50) &&
+        _controller.position.maxScrollExtent - 150) &&
         (currentTenses.length < widget.tenses.length)) {
       setState(() {
         offset += limit;
-        currentTenses.addAll(widget.tenses.sublist(offset, offset + limit));
+        try {
+          currentTenses.addAll(widget.tenses.sublist(offset, offset + limit));
+        } catch (RangeError) {
+          currentTenses
+              .addAll(widget.tenses.sublist(offset, widget.tenses.length));
+        }
       });
     }
   }
@@ -39,7 +44,8 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
   @override
   void initState() {
     super.initState();
-    currentTenses = List<Tense>.from(widget.tenses);
+    currentTenses =
+        List<Tense>.from(widget.tenses).sublist(offset, limit + offset);
     selectedTenses = List<Tense>.from(widget.tenses);
     _controller = ScrollController()..addListener(_paginate);
   }
@@ -83,9 +89,9 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
               child: ListView.builder(
                 controller: _controller,
                 physics: BouncingScrollPhysics(),
-                itemCount: widget.tenses.length,
+                itemCount: currentTenses.length,
                 itemBuilder: (context, index) => VerbCard(
-                  tense: widget.tenses[index],
+                  tense: currentTenses[index],
                   isChecked: selectedTenses.contains(widget.tenses[index]),
                   onCheck: (tense) => setState(() {
                     if (selectedTenses.contains(tense)) {
