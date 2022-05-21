@@ -90,6 +90,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                   MaterialPageRoute(
                     builder: (context) => DictionaryVerbs(
                       tenses: widget.tenses,
+                      previouslySelectedTenses: this.tenses,
                       onSelected: (tenses) => setState(() {
                         this.tenses = tenses;
                         tense = _getRandomTense();

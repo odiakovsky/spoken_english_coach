@@ -5,12 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DictionaryVerbs extends StatefulWidget {
   final List<Tense> tenses;
+  final List<Tense> previouslySelectedTenses;
   final void Function(List<Tense>) onSelected;
 
   const DictionaryVerbs({
     Key? key,
     required this.tenses,
     required this.onSelected,
+    required this.previouslySelectedTenses,
   }) : super(key: key);
 
   @override
@@ -44,9 +46,10 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
   @override
   void initState() {
     super.initState();
+    allChecked = widget.previouslySelectedTenses.length == widget.tenses.length;
     currentTenses =
         List<Tense>.from(widget.tenses).sublist(offset, limit + offset);
-    selectedTenses = List<Tense>.from(widget.tenses);
+    selectedTenses = List<Tense>.from(widget.previouslySelectedTenses);
     _controller = ScrollController()..addListener(_paginate);
   }
 
@@ -72,6 +75,7 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
                   if (allChecked) {
                     selectedTenses.clear();
                   } else {
+                    selectedTenses.clear();
                     selectedTenses.addAll(widget.tenses);
                   }
                   allChecked = !allChecked;
@@ -95,11 +99,14 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
                   isChecked: selectedTenses.contains(widget.tenses[index]),
                   onCheck: (tense) => setState(() {
                     if (selectedTenses.contains(tense)) {
+                      allChecked = false;
                       selectedTenses.removeWhere((t) => t.verb == tense.verb);
                     } else {
                       selectedTenses.addAll(
                         widget.tenses.where((t) => tense.verb == t.verb),
                       );
+                      allChecked =
+                          widget.tenses.length == selectedTenses.length;
                     }
                   }),
                 ),
@@ -109,10 +116,12 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          widget.onSelected(selectedTenses);
-          Navigator.of(context).pop();
-        },
+        onPressed: selectedTenses.isNotEmpty
+            ? () {
+                widget.onSelected(selectedTenses);
+                Navigator.of(context).pop();
+              }
+            : null,
         child: Icon(Icons.arrow_forward_ios_outlined),
       ),
     );
