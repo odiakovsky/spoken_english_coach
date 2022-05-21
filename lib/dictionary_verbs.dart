@@ -1,11 +1,16 @@
+import 'package:esc/card_of_verb.dart';
+import 'package:esc/models/tense.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:esc/models/tense.dart';
-import 'package:esc/card_of_verb.dart';
 
 class DictionaryVerbs extends StatefulWidget {
+  final List<Tense> tenses;
+  final void Function(List<Tense>) onSelected;
+
   const DictionaryVerbs({
     Key? key,
+    required this.tenses,
+    required this.onSelected,
   }) : super(key: key);
 
   @override
@@ -13,43 +18,93 @@ class DictionaryVerbs extends StatefulWidget {
 }
 
 class _DictionaryVerbsState extends State<DictionaryVerbs> {
+  bool allChecked = true;
+  late List<Tense> currentTenses;
+  late List<Tense> selectedTenses;
+  late ScrollController _controller;
+  int limit = 15;
+  int offset = 0;
+
+  void _paginate() {
+    if ((_controller.position.pixels >=
+            _controller.position.maxScrollExtent - 50) &&
+        (currentTenses.length < widget.tenses.length)) {
+      setState(() {
+        offset += limit;
+        currentTenses.addAll(widget.tenses.sublist(offset, offset + limit));
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    currentTenses = List<Tense>.from(widget.tenses);
+    selectedTenses = List<Tense>.from(widget.tenses);
+    _controller = ScrollController()..addListener(_paginate);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 25,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Text(
+              'Выберите глаголы:',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.roboto(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.black),
+            ),
+            CheckAll(
+              isChecked: allChecked,
+              onCheck: () {
+                setState(() {
+                  if (allChecked) {
+                    selectedTenses.clear();
+                  } else {
+                    selectedTenses.addAll(widget.tenses);
+                  }
+                  allChecked = !allChecked;
+                });
+              },
+            ),
+            //Нужно чтобы из таких карточек выводился весь список глаголов. Попорядку, не перемешивая.
+            //Наверное нужно использовать какой-нибудь ListView.
+            //Сейчас загружен файл с сотней глаголов. То есть из нашей модели он должен подставлять
+            //в карточку verb и verbTranslation. В карточке есть чекбокс. Нужно сделать так, что если я выберу,
+            //например, два глагола и нажму на FloatingActionButton, то происходил возврат на экран simple_tenses_practice
+            //и выбиралась случайная фраза только из выбранных глаголов. У каждого глагола по девять фраз, то есть
+            //случайный выбор был бы из 18 вариантов.
+            Expanded(
+              child: ListView.builder(
+                controller: _controller,
+                physics: BouncingScrollPhysics(),
+                itemCount: widget.tenses.length,
+                itemBuilder: (context, index) => VerbCard(
+                  tense: widget.tenses[index],
+                  isChecked: selectedTenses.contains(widget.tenses[index]),
+                  onCheck: (verb) => setState(() {
+                    if (selectedTenses.contains(verb)) {
+                      selectedTenses.remove(verb);
+                    } else {
+                      selectedTenses.add(verb);
+                    }
+                  }),
+                ),
               ),
-              Text(
-                'Выберите глаголы:',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.roboto(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              checkAll, //По умолчанию чекбокс здесь должен быть выбран и соответственно выбраны все, что ниже.
-              //При снятии здесь галочки, должны пропадать все галочки ниже.
-              cardOfVerb, //Нужно чтобы из таких карточек выводился весь список глаголов. Попорядку, не перемешивая.
-              //Наверное нужно использовать какой-нибудь ListView.
-              //Сейчас загружен файл с сотней глаголов. То есть из нашей модели он должен подставлять
-              //в карточку verb и verbTranslation. В карточке есть чекбокс. Нужно сделать так, что если я выберу,
-              //например, два глагола и нажму на FloatingActionButton, то происходил возврат на экран simple_tenses_practice
-              //и выбиралась случайная фраза только из выбранных глаголов. У каждого глагола по девять фраз, то есть
-              //случайный выбор был бы из 18 вариантов.
-            ],
-          ),
+            )
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: () {
+          widget.onSelected(selectedTenses);
+          Navigator.of(context).pop();
+        },
         child: Icon(Icons.arrow_forward_ios_outlined),
       ),
     );

@@ -1,57 +1,68 @@
+import 'package:esc/models/tense.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-var cardOfVerb = Container(
-  constraints: BoxConstraints(
-      maxWidth: double.infinity,
-      minWidth: 400,
-      maxHeight: double.infinity,
-      minHeight: double.minPositive),
-  child: Card(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    color: Colors.white,
-    child: Container(
-      padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CheckBox(),
-          const SizedBox(
-            width: 100,
-          ),
-          Column(
-            children: [
-              Text(
-                'любить',
-                style: GoogleFonts.roboto(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey.shade900),
-              ),
-              Text(
-                'to love (loved)',
-                style: GoogleFonts.roboto(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey.shade900),
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
-  ),
-);
+class VerbCard extends StatelessWidget {
+  final void Function(Tense) onCheck;
+  final Tense tense;
+  final bool isChecked;
 
-class CheckBox extends StatefulWidget {
-  const CheckBox({Key? key}) : super(key: key);
+  const VerbCard({
+    Key? key,
+    required this.tense,
+    required this.onCheck,
+    required this.isChecked,
+  }) : super(key: key);
 
   @override
-  State<CheckBox> createState() => _CheckBoxState();
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      color: Colors.white,
+      child: Container(
+        padding: const EdgeInsets.all(5.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            CheckBox(
+              isChecked: isChecked,
+              onCheck: () => onCheck(tense),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    tense.verb,
+                    style: GoogleFonts.roboto(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.grey.shade900,
+                    ),
+                  ),
+                  Text(
+                    tense.verbTranslation,
+                    style: GoogleFonts.roboto(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.grey.shade900,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-class _CheckBoxState extends State<CheckBox> {
-  bool isChecked = false;
+class CheckBox extends StatelessWidget {
+  final VoidCallback onCheck;
+  final bool isChecked;
+
+  const CheckBox({Key? key, required this.onCheck, required this.isChecked})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -72,44 +83,61 @@ class _CheckBoxState extends State<CheckBox> {
       fillColor: MaterialStateProperty.resolveWith(getColor),
       value: isChecked,
       onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
+        onCheck();
       },
     );
   }
 }
 
-var checkAll = Container(
-  constraints: BoxConstraints(
-      maxWidth: double.infinity,
-      minWidth: 400,
-      maxHeight: double.infinity,
-      minHeight: double.minPositive),
-  child: Card(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    color: Colors.grey.shade300,
-    child: Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CheckBox(),
-          const SizedBox(
-            width: 100,
-          ),
-          Column(
+class CheckAll extends StatelessWidget {
+  final bool isChecked;
+  final VoidCallback onCheck;
+
+  const CheckAll({
+    Key? key,
+    required this.onCheck,
+    required this.isChecked,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints(
+        maxWidth: double.infinity,
+        minWidth: 400,
+        maxHeight: double.infinity,
+        minHeight: double.minPositive,
+      ),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: Colors.grey.shade300,
+        child: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                'Выбрать все',
-                style: GoogleFonts.roboto(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.grey.shade900),
+              CheckBox(
+                isChecked: isChecked,
+                onCheck: onCheck,
+              ),
+              const SizedBox(
+                width: 100,
+              ),
+              Column(
+                children: [
+                  Text(
+                    'Выбрать все',
+                    style: GoogleFonts.roboto(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.grey.shade900,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
-    ),
-  ),
-);
+    );
+  }
+}

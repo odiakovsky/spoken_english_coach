@@ -1,11 +1,11 @@
+import 'package:esc/dictionary_verbs.dart';
 import 'package:esc/models/tense.dart';
+import 'package:esc/show_phrase.dart';
+import 'package:esc/show_translation.dart';
+import 'package:esc/show_verb.dart';
+import 'package:esc/style_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'style_button.dart';
-import 'show_phrase.dart';
-import 'show_verb.dart';
-import 'show_translation.dart';
-import 'dictionary_verbs.dart';
 
 class SimpleTensesPractice extends StatefulWidget {
   final List<Tense> tenses;
@@ -19,15 +19,17 @@ class SimpleTensesPractice extends StatefulWidget {
 
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   late Tense tense;
+  late List<Tense> tenses;
   double _currentSliderValue = 10;
   bool isVerbHidden = true;
   bool isTranslationHidden = true;
 
-  Tense _getRandomTense() => (widget.tenses..shuffle()).first;
+  Tense _getRandomTense() => (tenses..shuffle()).first;
 
   @override
   void initState() {
     super.initState();
+    tenses = widget.tenses;
     tense = _getRandomTense();
   }
 
@@ -81,8 +83,19 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             ElevatedButton(
               style: styleButtonTheoryAndPractice,
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/dictionary_verbs', (route) => true);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DictionaryVerbs(
+                      tenses: widget.tenses,
+                      onSelected: (tenses) => setState(() {
+                        this.tenses = tenses;
+                        tense = _getRandomTense();
+                      }),
+                    ),
+                  ),
+                  (route) => true,
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
