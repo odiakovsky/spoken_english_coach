@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:esc/dictionary_verbs.dart';
 import 'package:esc/models/tense.dart';
 import 'package:esc/show_phrase.dart';
@@ -24,7 +26,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   bool isVerbHidden = true;
   bool isTranslationHidden = true;
 
-  Tense _getRandomTense() => (tenses..shuffle()).first;
+  Tense _getRandomTense() => tenses[Random().nextInt(tenses.length)];
 
   @override
   void initState() {
@@ -88,6 +90,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                   MaterialPageRoute(
                     builder: (context) => DictionaryVerbs(
                       tenses: widget.tenses,
+                      previouslySelectedTenses: this.tenses,
                       onSelected: (tenses) => setState(() {
                         this.tenses = tenses;
                         tense = _getRandomTense();
