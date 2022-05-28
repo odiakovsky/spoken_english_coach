@@ -32,7 +32,7 @@ class VerbCard extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    tense.phrase,
+                    tense.verb,
                     style: GoogleFonts.roboto(
                       fontSize: 20,
                       fontWeight: FontWeight.w300,
