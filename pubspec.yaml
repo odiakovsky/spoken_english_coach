@@ -93,6 +93,7 @@ flutter:
     - assets/icons/
     - assets/csv/
     - assets/images/
+    - assets/sounds/simple_tenses_sounds/to_love_sounds/
 
   fonts:
     - family: Roboto
