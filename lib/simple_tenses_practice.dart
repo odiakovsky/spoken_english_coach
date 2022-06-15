@@ -21,13 +21,9 @@ class SimpleTensesPractice extends StatefulWidget {
 }
 
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
-  final AudioPlayer _phraseAudioPlayer = AudioPlayer();
-  final AudioPlayer _translationAudioPlayer = AudioPlayer();
-  PlayerState phraseVoicingState = PlayerState.STOPPED;
-  PlayerState translationVoicingState = PlayerState.STOPPED;
-  late AudioCache phraseVoicing;
-  late AudioCache translationVoicing;
-
+  late AudioCache voicing;
+  final AudioPlayer voicingPlayer = AudioPlayer();
+  PlayerState voicingState = PlayerState.COMPLETED;
   late Tense tense;
   late List<Tense> tenses;
   double _currentSliderValue = 10;
@@ -41,19 +37,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
     super.initState();
     tenses = widget.tenses;
     tense = _getRandomTense();
-    this._phraseAudioPlayer.onPlayerStateChanged.listen((event) {
+    this.voicingPlayer.onPlayerStateChanged.listen((event) {
       setState(() {
-        phraseVoicingState = event;
+        voicingState = event;
       });
     });
-    this._translationAudioPlayer.onPlayerStateChanged.listen((event) {
-      setState(() {
-        translationVoicingState = event;
-      });
-    });
-    phraseVoicing = AudioCache(prefix: "", fixedPlayer: _phraseAudioPlayer);
-    translationVoicing =
-        AudioCache(prefix: "", fixedPlayer: _translationAudioPlayer);
+    voicing = AudioCache(prefix: "", fixedPlayer: voicingPlayer);
   }
 
   @override
@@ -183,9 +172,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           iconSize: 30,
           color: Colors.black,
           onPressed: () {
-            phraseVoicing.play(tense.ruVoicing);
+            voicing.play(tense.ruVoicing);
           },
-          icon: phraseVoicingState == PlayerState.PLAYING
+          icon: voicingState == PlayerState.PLAYING
               ? Icon(Icons.volume_up)
               : Icon(Icons.volume_off),
         ),
@@ -234,9 +223,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             iconSize: 30,
             color: Colors.black,
             onPressed: () {
-              translationVoicing.play(tense.enVoicing);
+              voicing.play(tense.enVoicing);
             },
-            icon: translationVoicingState == PlayerState.PLAYING
+            icon: voicingState == PlayerState.PLAYING
                 ? Icon(Icons.volume_up)
                 : Icon(Icons.volume_off),
           ),
