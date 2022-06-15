@@ -21,36 +21,23 @@ class DictionaryVerbs extends StatefulWidget {
 
 class _DictionaryVerbsState extends State<DictionaryVerbs> {
   bool allChecked = true;
-  late List<Tense> currentTenses;
-  late List<Tense> selectedTenses;
-  late ScrollController _controller;
-  int limit = 100;
-  int offset = 0;
-
-  void _paginate() {
-    if ((_controller.position.pixels >=
-            _controller.position.maxScrollExtent - 150) &&
-        (currentTenses.length < widget.tenses.length)) {
-      setState(() {
-        offset += limit;
-        try {
-          currentTenses.addAll(widget.tenses.sublist(offset, offset + limit));
-        } catch (RangeError) {
-          currentTenses
-              .addAll(widget.tenses.sublist(offset, widget.tenses.length));
-        }
-      });
-    }
-  }
+  final List<Tense> currentTenses = <Tense>[];
+  final List<Tense> selectedTenses = <Tense>[];
+  final Set<String> selectedVerbs = <String>{};
 
   @override
   void initState() {
     super.initState();
     allChecked = widget.previouslySelectedTenses.length == widget.tenses.length;
-    currentTenses =
-        List<Tense>.from(widget.tenses).sublist(offset, limit + offset);
-    selectedTenses = List<Tense>.from(widget.previouslySelectedTenses);
-    _controller = ScrollController()..addListener(_paginate);
+    final verbsTaken = <String>[];
+    widget.tenses.forEach((tense) {
+      if (!verbsTaken.contains(tense.verb)) {
+        currentTenses.add(tense);
+        verbsTaken.add(tense.verb);
+      }
+    });
+    selectedTenses.addAll(widget.previouslySelectedTenses);
+    selectedVerbs.addAll(selectedTenses.map((e) => e.verb));
   }
 
   @override
@@ -74,9 +61,12 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
                 setState(() {
                   if (allChecked) {
                     selectedTenses.clear();
+                    selectedVerbs.clear();
                   } else {
                     selectedTenses.clear();
                     selectedTenses.addAll(widget.tenses);
+                    selectedVerbs.clear();
+                    selectedVerbs.addAll(selectedTenses.map((e) => e.verb));
                   }
                   allChecked = !allChecked;
                 });
@@ -84,20 +74,21 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
             ),
             Expanded(
               child: ListView.builder(
-                controller: _controller,
                 physics: BouncingScrollPhysics(),
                 itemCount: currentTenses.length,
                 itemBuilder: (context, index) => VerbCard(
                   tense: currentTenses[index],
-                  isChecked: selectedTenses.contains(widget.tenses[index]),
+                  isChecked: selectedVerbs.contains(currentTenses[index].verb),
                   onCheck: (tense) => setState(() {
                     if (selectedTenses.contains(tense)) {
                       allChecked = false;
                       selectedTenses.removeWhere((t) => t.verb == tense.verb);
+                      selectedVerbs.remove(tense.verb);
                     } else {
                       selectedTenses.addAll(
                         widget.tenses.where((t) => tense.verb == t.verb),
                       );
+                      selectedVerbs.add(tense.verb);
                       allChecked =
                           widget.tenses.length == selectedTenses.length;
                     }
