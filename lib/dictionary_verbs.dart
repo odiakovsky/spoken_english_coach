@@ -29,7 +29,7 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
 
   void _paginate() {
     if ((_controller.position.pixels >=
-        _controller.position.maxScrollExtent - 150) &&
+            _controller.position.maxScrollExtent - 150) &&
         (currentTenses.length < widget.tenses.length)) {
       setState(() {
         offset += limit;
@@ -82,13 +82,6 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
                 });
               },
             ),
-            //Нужно чтобы из таких карточек выводился весь список глаголов. Попорядку, не перемешивая.
-            //Наверное нужно использовать какой-нибудь ListView.
-            //Сейчас загружен файл с сотней глаголов. То есть из нашей модели он должен подставлять
-            //в карточку verb и verbTranslation. В карточке есть чекбокс. Нужно сделать так, что если я выберу,
-            //например, два глагола и нажму на FloatingActionButton, то происходил возврат на экран simple_tenses_practice
-            //и выбиралась случайная фраза только из выбранных глаголов. У каждого глагола по девять фраз, то есть
-            //случайный выбор был бы из 18 вариантов.
             Expanded(
               child: ListView.builder(
                 controller: _controller,
