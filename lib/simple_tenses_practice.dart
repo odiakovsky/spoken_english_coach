@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:esc/dictionary_verbs.dart';
 import 'package:esc/models/tense.dart';
 import 'package:esc/show_phrase.dart';
@@ -20,6 +21,9 @@ class SimpleTensesPractice extends StatefulWidget {
 }
 
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
+  late AudioCache voicing;
+  final AudioPlayer voicingPlayer = AudioPlayer();
+  PlayerState voicingState = PlayerState.COMPLETED;
   late Tense tense;
   late List<Tense> tenses;
   double _currentSliderValue = 10;
@@ -33,6 +37,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
     super.initState();
     tenses = widget.tenses;
     tense = _getRandomTense();
+    this.voicingPlayer.onPlayerStateChanged.listen((event) {
+      setState(() {
+        voicingState = event;
+      });
+    });
+    voicing = AudioCache(prefix: "", fixedPlayer: voicingPlayer);
   }
 
   @override
@@ -161,8 +171,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         child: IconButton(
           iconSize: 30,
           color: Colors.black,
-          onPressed: () {},
-          icon: const Icon(Icons.volume_off),
+          onPressed: () {
+            voicing.play(tense.ruVoicing);
+          },
+          icon: voicingState == PlayerState.PLAYING
+              ? Icon(Icons.volume_up)
+              : Icon(Icons.volume_off),
         ),
       ),
       const SizedBox(
@@ -208,8 +222,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           IconButton(
             iconSize: 30,
             color: Colors.black,
-            onPressed: () {},
-            icon: const Icon(Icons.volume_off),
+            onPressed: () {
+              voicing.play(tense.enVoicing);
+            },
+            icon: voicingState == PlayerState.PLAYING
+                ? Icon(Icons.volume_up)
+                : Icon(Icons.volume_off),
           ),
         ],
       ),
