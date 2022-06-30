@@ -173,9 +173,14 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           iconSize: 30,
           color: Colors.black,
           onPressed: () {
-            voicing.play(tense.ruVoicing);
+            if (!_isPhraseVoicingEnabled) {
+              phraseVoicing.play(tense.ruVoicing);
+            }
+            setState(() {
+              _isPhraseVoicingEnabled = !_isPhraseVoicingEnabled;
+            });
           },
-          icon: voicingState == PlayerState.PLAYING
+          icon: _isPhraseVoicingEnabled
               ? Icon(Icons.volume_up)
               : Icon(Icons.volume_off),
         ),
@@ -295,11 +300,16 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
                     side: BorderSide(color: Colors.blue.shade50)),
-                onPressed: () => setState(() {
-                  isVerbHidden = true;
-                  isTranslationHidden = true;
-                  tense = _getRandomTense();
-                }),
+                onPressed: () {
+                  setState(() {
+                    isVerbHidden = true;
+                    isTranslationHidden = true;
+                    tense = _getRandomTense();
+                  });
+                  if (_isPhraseVoicingEnabled) {
+                    phraseVoicing.play(tense.ruVoicing);
+                  }
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.min,
