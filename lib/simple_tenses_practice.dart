@@ -21,9 +21,13 @@ class SimpleTensesPractice extends StatefulWidget {
 }
 
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
-  late AudioCache voicing;
-  final AudioPlayer voicingPlayer = AudioPlayer();
-  PlayerState voicingState = PlayerState.COMPLETED;
+  final AudioPlayer _phraseAudioPlayer = AudioPlayer();
+  final AudioPlayer _translationAudioPlayer = AudioPlayer();
+  late AudioCache phraseVoicing;
+  late AudioCache translationVoicing;
+  bool _isTranslationVoicingEnabled = false;
+  bool _isPhraseVoicingEnabled = false;
+
   late Tense tense;
   late List<Tense> tenses;
   double _currentSliderValue = 10;
@@ -37,12 +41,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
     super.initState();
     tenses = widget.tenses;
     tense = _getRandomTense();
-    this.voicingPlayer.onPlayerStateChanged.listen((event) {
-      setState(() {
-        voicingState = event;
-      });
-    });
-    voicing = AudioCache(prefix: "", fixedPlayer: voicingPlayer);
+    phraseVoicing = AudioCache(prefix: "", fixedPlayer: _phraseAudioPlayer);
+    translationVoicing =
+        AudioCache(prefix: "", fixedPlayer: _translationAudioPlayer);
   }
 
   @override
@@ -195,6 +196,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         translation: tense.translation,
         isTranslationHidden: isTranslationHidden,
         onPressed: (isHidden) {
+          if (_isTranslationVoicingEnabled && isTranslationHidden) {
+            translationVoicing.play(tense.enVoicing);
+          }
           setState(() {
             isTranslationHidden = isHidden;
           });
@@ -223,9 +227,11 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             iconSize: 30,
             color: Colors.black,
             onPressed: () {
-              voicing.play(tense.enVoicing);
+              setState(() {
+                _isTranslationVoicingEnabled = !_isTranslationVoicingEnabled;
+              });
             },
-            icon: voicingState == PlayerState.PLAYING
+            icon: _isTranslationVoicingEnabled
                 ? Icon(Icons.volume_up)
                 : Icon(Icons.volume_off),
           ),
