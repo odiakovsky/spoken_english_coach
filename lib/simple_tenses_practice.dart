@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
@@ -35,6 +36,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   bool isTranslationHidden = true;
 
   bool isAutoModeEnabled = false;
+  Timer? timer = null;
 
   Tense _getRandomTense() => tenses[Random().nextInt(tenses.length)];
 
@@ -46,12 +48,6 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
     });
     if (_isPhraseVoicingEnabled) {
       phraseVoicing.play(tense.ruVoicing);
-    }
-    if (isAutoModeEnabled) {
-      await Future.delayed(
-        Duration(seconds: _currentSliderValue.toInt()),
-        _showNext,
-      );
     }
   }
 
@@ -240,10 +236,15 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               setState(() {
                 isAutoModeEnabled = value;
               });
-              await Future.delayed(
-                Duration(seconds: _currentSliderValue.toInt()),
-                _showNext,
-              );
+              if (isAutoModeEnabled) {
+                timer?.cancel();
+                timer = Timer.periodic(
+                  Duration(seconds: _currentSliderValue.toInt()),
+                  (_) => _showNext(),
+                );
+              } else {
+                timer?.cancel();
+              }
             },
           ),
           Text(
