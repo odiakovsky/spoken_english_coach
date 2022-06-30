@@ -34,7 +34,26 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   bool isVerbHidden = true;
   bool isTranslationHidden = true;
 
+  bool isAutoModeEnabled = false;
+
   Tense _getRandomTense() => tenses[Random().nextInt(tenses.length)];
+
+  void _showNext() async {
+    setState(() {
+      isVerbHidden = true;
+      isTranslationHidden = true;
+      tense = _getRandomTense();
+    });
+    if (_isPhraseVoicingEnabled) {
+      phraseVoicing.play(tense.ruVoicing);
+    }
+    if (isAutoModeEnabled) {
+      await Future.delayed(
+        Duration(seconds: _currentSliderValue.toInt()),
+        _showNext,
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -216,8 +235,16 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Switch(
-            value: false,
-            onChanged: (bool value) {},
+            value: isAutoModeEnabled,
+            onChanged: (bool value) async {
+              setState(() {
+                isAutoModeEnabled = value;
+              });
+              await Future.delayed(
+                Duration(seconds: _currentSliderValue.toInt()),
+                _showNext,
+              );
+            },
           ),
           Text(
             'Автоматический режим',
@@ -244,9 +271,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       ),
       Slider(
         value: _currentSliderValue,
-        min: 0,
+        min: 5,
         max: 30,
-        divisions: 6,
+        divisions: 5,
         label: _currentSliderValue.round().toString(),
         onChanged: (double value) {
           setState(() {
@@ -300,16 +327,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
                     side: BorderSide(color: Colors.blue.shade50)),
-                onPressed: () {
-                  setState(() {
-                    isVerbHidden = true;
-                    isTranslationHidden = true;
-                    tense = _getRandomTense();
-                  });
-                  if (_isPhraseVoicingEnabled) {
-                    phraseVoicing.play(tense.ruVoicing);
-                  }
-                },
+                onPressed: _showNext,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.min,
