@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
@@ -21,28 +22,43 @@ class SimpleTensesPractice extends StatefulWidget {
 }
 
 class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
-  late AudioCache voicing;
-  final AudioPlayer voicingPlayer = AudioPlayer();
-  PlayerState voicingState = PlayerState.COMPLETED;
+  final AudioPlayer _phraseAudioPlayer = AudioPlayer();
+  final AudioPlayer _translationAudioPlayer = AudioPlayer();
+  late AudioCache phraseVoicing;
+  late AudioCache translationVoicing;
+  bool _isTranslationVoicingEnabled = false;
+  bool _isPhraseVoicingEnabled = false;
+
   late Tense tense;
   late List<Tense> tenses;
   double _currentSliderValue = 10;
   bool isVerbHidden = true;
   bool isTranslationHidden = true;
 
+  bool isAutoModeEnabled = false;
+  Timer? timer = null;
+
   Tense _getRandomTense() => tenses[Random().nextInt(tenses.length)];
+
+  void _showNext() async {
+    setState(() {
+      isVerbHidden = true;
+      isTranslationHidden = true;
+      tense = _getRandomTense();
+    });
+    if (_isPhraseVoicingEnabled) {
+      phraseVoicing.play(tense.ruVoicing);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     tenses = widget.tenses;
     tense = _getRandomTense();
-    this.voicingPlayer.onPlayerStateChanged.listen((event) {
-      setState(() {
-        voicingState = event;
-      });
-    });
-    voicing = AudioCache(prefix: "", fixedPlayer: voicingPlayer);
+    phraseVoicing = AudioCache(prefix: "", fixedPlayer: _phraseAudioPlayer);
+    translationVoicing =
+        AudioCache(prefix: "", fixedPlayer: _translationAudioPlayer);
   }
 
   @override
@@ -172,9 +188,14 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           iconSize: 30,
           color: Colors.black,
           onPressed: () {
-            voicing.play(tense.ruVoicing);
+            if (!_isPhraseVoicingEnabled) {
+              phraseVoicing.play(tense.ruVoicing);
+            }
+            setState(() {
+              _isPhraseVoicingEnabled = !_isPhraseVoicingEnabled;
+            });
           },
-          icon: voicingState == PlayerState.PLAYING
+          icon: _isPhraseVoicingEnabled
               ? Icon(Icons.volume_up)
               : Icon(Icons.volume_off),
         ),
@@ -195,6 +216,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         translation: tense.translation,
         isTranslationHidden: isTranslationHidden,
         onPressed: (isHidden) {
+          if (_isTranslationVoicingEnabled && isTranslationHidden) {
+            translationVoicing.play(tense.enVoicing);
+          }
           setState(() {
             isTranslationHidden = isHidden;
           });
@@ -207,8 +231,21 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Switch(
-            value: false,
-            onChanged: (bool value) {},
+            value: isAutoModeEnabled,
+            onChanged: (bool value) async {
+              setState(() {
+                isAutoModeEnabled = value;
+              });
+              if (isAutoModeEnabled) {
+                timer?.cancel();
+                timer = Timer.periodic(
+                  Duration(seconds: _currentSliderValue.toInt()),
+                  (_) => _showNext(),
+                );
+              } else {
+                timer?.cancel();
+              }
+            },
           ),
           Text(
             'Автоматический режим',
@@ -223,9 +260,11 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             iconSize: 30,
             color: Colors.black,
             onPressed: () {
-              voicing.play(tense.enVoicing);
+              setState(() {
+                _isTranslationVoicingEnabled = !_isTranslationVoicingEnabled;
+              });
             },
-            icon: voicingState == PlayerState.PLAYING
+            icon: _isTranslationVoicingEnabled
                 ? Icon(Icons.volume_up)
                 : Icon(Icons.volume_off),
           ),
@@ -233,9 +272,9 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       ),
       Slider(
         value: _currentSliderValue,
-        min: 0,
+        min: 5,
         max: 30,
-        divisions: 6,
+        divisions: 5,
         label: _currentSliderValue.round().toString(),
         onChanged: (double value) {
           setState(() {
@@ -289,11 +328,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
                     side: BorderSide(color: Colors.blue.shade50)),
-                onPressed: () => setState(() {
-                  isVerbHidden = true;
-                  isTranslationHidden = true;
-                  tense = _getRandomTense();
-                }),
+                onPressed: _showNext,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.min,
