@@ -38,13 +38,22 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   bool isAutoModeEnabled = false;
   Timer? timer = null;
 
-  Tense _getRandomTense() => tenses[Random().nextInt(tenses.length)];
+  Tense _getNextTense() {
+    final next = Random().nextInt(tenses.length);
+    tense = tenses[next];
+    if (tenses.length > 1) {
+      tenses.removeAt(next);
+    } else {
+      tenses = List<Tense>.from(widget.tenses);
+    }
+    return tense;
+  }
 
   void _showNext() async {
     setState(() {
       isVerbHidden = true;
       isTranslationHidden = true;
-      tense = _getRandomTense();
+      tense = _getNextTense();
     });
     if (_isPhraseVoicingEnabled) {
       phraseVoicing.play(tense.ruVoicing);
@@ -54,8 +63,8 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   @override
   void initState() {
     super.initState();
-    tenses = widget.tenses;
-    tense = _getRandomTense();
+    tenses = List<Tense>.from(widget.tenses);
+    tense = _getNextTense();
     phraseVoicing = AudioCache(prefix: "", fixedPlayer: _phraseAudioPlayer);
     translationVoicing =
         AudioCache(prefix: "", fixedPlayer: _translationAudioPlayer);
@@ -119,7 +128,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                       previouslySelectedTenses: this.tenses,
                       onSelected: (tenses) => setState(() {
                         this.tenses = tenses;
-                        tense = _getRandomTense();
+                        tense = _getNextTense();
                       }),
                     ),
                   ),
