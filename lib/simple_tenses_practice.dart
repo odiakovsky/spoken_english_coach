@@ -36,6 +36,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   bool isTranslationHidden = true;
 
   bool isAutoModeEnabled = false;
+  static const int _autoModeDelay = 2;
   Timer? timer = null;
 
   Tense _getNextTense() {
@@ -248,8 +249,21 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               if (isAutoModeEnabled) {
                 timer?.cancel();
                 timer = Timer.periodic(
-                  Duration(seconds: _currentSliderValue.toInt()),
-                  (_) => _showNext(),
+                  Duration(
+                    seconds: _currentSliderValue.toInt() + _autoModeDelay,
+                  ),
+                  (_) async {
+                    if (_isTranslationVoicingEnabled) {
+                      setState(() {
+                        isTranslationHidden = false;
+                      });
+                      translationVoicing.play(tense.enVoicing);
+                    }
+                    await Future.delayed(
+                      Duration(seconds: _autoModeDelay),
+                      _showNext,
+                    );
+                  },
                 );
               } else {
                 timer?.cancel();
