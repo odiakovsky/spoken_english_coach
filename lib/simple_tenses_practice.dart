@@ -57,7 +57,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       tense = _getNextTense();
     });
     if (_isPhraseVoicingEnabled) {
-      phraseVoicing.play(tense.ruVoicing);
+      phraseVoicing.play(tense.phraseVoicing);
     }
   }
 
@@ -199,7 +199,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           color: Colors.black,
           onPressed: () {
             if (!_isPhraseVoicingEnabled) {
-              phraseVoicing.play(tense.ruVoicing);
+              phraseVoicing.play(tense.phraseVoicing);
             }
             setState(() {
               _isPhraseVoicingEnabled = !_isPhraseVoicingEnabled;
@@ -227,7 +227,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         isTranslationHidden: isTranslationHidden,
         onPressed: (isHidden) {
           if (_isTranslationVoicingEnabled && isTranslationHidden) {
-            translationVoicing.play(tense.enVoicing);
+            translationVoicing.play(tense.translationVoicing);
           }
           setState(() {
             isTranslationHidden = isHidden;
@@ -295,7 +295,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                   setState(() {
                     isTranslationHidden = false;
                   });
-                  translationVoicing.play(tense.enVoicing);
+                  translationVoicing.play(tense.translationVoicing);
                 }
                 await Future.delayed(
                   Duration(seconds: _autoModeDelay),
