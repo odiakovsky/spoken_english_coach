@@ -246,26 +246,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               setState(() {
                 isAutoModeEnabled = value;
               });
-              if (isAutoModeEnabled) {
-                timer?.cancel();
-                timer = Timer.periodic(
-                  Duration(
-                    seconds: _currentSliderValue.toInt() + _autoModeDelay,
-                  ),
-                  (_) async {
-                    if (_isTranslationVoicingEnabled) {
-                      setState(() {
-                        isTranslationHidden = false;
-                      });
-                      translationVoicing.play(tense.enVoicing);
-                    }
-                    await Future.delayed(
-                      Duration(seconds: _autoModeDelay),
-                      _showNext,
-                    );
-                  },
-                );
-              } else {
+              if (!isAutoModeEnabled) {
                 timer?.cancel();
               }
             },
@@ -303,6 +284,26 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           setState(() {
             _currentSliderValue = value;
           });
+          if (isAutoModeEnabled) {
+            timer?.cancel();
+            timer = Timer.periodic(
+              Duration(
+                seconds: _currentSliderValue.toInt() + _autoModeDelay,
+              ),
+              (_) async {
+                if (_isTranslationVoicingEnabled) {
+                  setState(() {
+                    isTranslationHidden = false;
+                  });
+                  translationVoicing.play(tense.enVoicing);
+                }
+                await Future.delayed(
+                  Duration(seconds: _autoModeDelay),
+                  _showNext,
+                );
+              },
+            );
+          }
         },
       ),
       Align(
