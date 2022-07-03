@@ -3,12 +3,15 @@ class Tense {
   final String translation;
   final String verb;
   final String verbTranslation;
-  final String ruVoicing;
-  final String enVoicing;
+
+  /// Путь до файла с озвучкой фразы
+  final String phraseVoicing;
+  /// Путь до файла с озвучкой перевода
+  final String translationVoicing;
 
   Tense({
-    required this.ruVoicing,
-    required this.enVoicing,
+    required this.phraseVoicing,
+    required this.translationVoicing,
     required this.phrase,
     required this.translation,
     required this.verb,
@@ -21,8 +24,8 @@ class Tense {
       translation: row[1],
       verb: row[2],
       verbTranslation: row[3],
-      ruVoicing: row.length == 4 ? "FIXME" : row[4],
-      enVoicing: row.length == 4 ? "FIXME" : row[5],
+      phraseVoicing: row.length == 4 ? "FIXME" : row[4],
+      translationVoicing: row.length == 4 ? "FIXME" : row[5],
     );
   }
 }
