@@ -27,6 +27,13 @@ class TheoryOfSimpleTenses extends StatelessWidget {
           fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
     );
 
+    var text4 = Text(
+      '       Если вы хотитие использовать следующие слова в вашей речи, то следует употреблять время Simple',
+      textAlign: TextAlign.justify,
+      style: GoogleFonts.roboto(
+          fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
+    );
+
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.grey.shade100,
@@ -48,6 +55,11 @@ class TheoryOfSimpleTenses extends StatelessWidget {
           ),
           Container(
               child: SvgPicture.asset('assets/images/table_simple_tenses.svg')),
+          const SizedBox(
+            height: 30,
+          ),
+          Container(margin: EdgeInsets.fromLTRB(20, 10, 20, 10), child: text4),
+          Container(child: Image.asset('assets/images/mrkrs_prsnt_smpl.png')),
           const SizedBox(
             height: 10,
           ),
