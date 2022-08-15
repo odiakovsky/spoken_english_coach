@@ -43,6 +43,7 @@ class _ChooseTrainState extends State<ChooseTrain> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.grey.shade100,
         body: SingleChildScrollView(

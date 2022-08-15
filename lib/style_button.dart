@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 var styleButtonChooseLanguage = ButtonStyle(
-  minimumSize: MaterialStateProperty.all(Size(300, 50)),
+  minimumSize: MaterialStateProperty.all(Size(300, 60)),
   elevation: MaterialStateProperty.all(10),
-  backgroundColor: MaterialStateProperty.all(Colors.white),
+  backgroundColor: MaterialStateProperty.all(Color(0xFF5A88A3)),
   foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
   overlayColor: MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
   shape: MaterialStateProperty.all(
-    RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    RoundedRectangleBorder(borderRadius: BorderRadius.circular(1)),
   ),
 );
 
