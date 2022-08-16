@@ -1,5 +1,6 @@
 import 'package:esc/card_of_verb.dart';
 import 'package:esc/models/tense.dart';
+import 'package:esc/theme/config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -45,68 +46,85 @@ class _DictionaryVerbsState extends State<DictionaryVerbs> {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
-        child: Column(
-          children: [
-            Text(
-              'Выберите глаголы:',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.black),
-            ),
-            CheckAll(
-              isChecked: allChecked,
-              onCheck: () {
-                setState(() {
-                  if (allChecked) {
-                    selectedTenses.clear();
-                    selectedVerbs.clear();
-                  } else {
-                    selectedTenses.clear();
-                    selectedTenses.addAll(widget.tenses);
-                    selectedVerbs.clear();
-                    selectedVerbs.addAll(selectedTenses.map((e) => e.verb));
-                  }
-                  allChecked = !allChecked;
-                });
-              },
-            ),
-            Expanded(
-              child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: currentTenses.length,
-                itemBuilder: (context, index) => VerbCard(
-                  tense: currentTenses[index],
-                  isChecked: selectedVerbs.contains(currentTenses[index].verb),
-                  onCheck: (tense) => setState(() {
-                    if (selectedTenses.contains(tense)) {
-                      allChecked = false;
-                      selectedTenses.removeWhere((t) => t.verb == tense.verb);
-                      selectedVerbs.remove(tense.verb);
-                    } else {
-                      selectedTenses.addAll(
-                        widget.tenses.where((t) => tense.verb == t.verb),
-                      );
-                      selectedVerbs.add(tense.verb);
-                      allChecked =
-                          widget.tenses.length == selectedTenses.length;
-                    }
-                  }),
-                ),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: currentTheme.currentTheme == ThemeMode.light
+              ? BoxDecoration(
+            color: Color(0xFFF6F6F6),
+          )
+              : BoxDecoration(
+              gradient: LinearGradient(colors: <Color>[
+                Color(0xFF222229),
+                Color(0xFF6490AA),
+                Color(0xFF222229),
+              ])),
+          child: Column(
+            children: [
+              Text(
+                'Выберите глаголы:',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.roboto(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w300,
+                  color: currentTheme.currentTheme == ThemeMode.light
+                      ? Colors.black
+                      : Colors.white,),
               ),
-            )
-          ],
+              CheckAll(
+                isChecked: allChecked,
+                onCheck: () {
+                  setState(() {
+                    if (allChecked) {
+                      selectedTenses.clear();
+                      selectedVerbs.clear();
+                    } else {
+                      selectedTenses.clear();
+                      selectedTenses.addAll(widget.tenses);
+                      selectedVerbs.clear();
+                      selectedVerbs.addAll(selectedTenses.map((e) => e.verb));
+                    }
+                    allChecked = !allChecked;
+                  });
+                },
+              ),
+              Expanded(
+                child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: currentTenses.length,
+                  itemBuilder: (context, index) => VerbCard(
+                    tense: currentTenses[index],
+                    isChecked: selectedVerbs.contains(currentTenses[index].verb),
+                    onCheck: (tense) => setState(() {
+                      if (selectedTenses.contains(tense)) {
+                        allChecked = false;
+                        selectedTenses.removeWhere((t) => t.verb == tense.verb);
+                        selectedVerbs.remove(tense.verb);
+                      } else {
+                        selectedTenses.addAll(
+                          widget.tenses.where((t) => tense.verb == t.verb),
+                        );
+                        selectedVerbs.add(tense.verb);
+                        allChecked =
+                            widget.tenses.length == selectedTenses.length;
+                      }
+                    }),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        foregroundColor: Color(0xFFA4CCE4),
+        backgroundColor: Color(0xFFA4CCE4),
         onPressed: selectedTenses.isNotEmpty
             ? () {
                 widget.onSelected(selectedTenses);
                 Navigator.of(context).pop();
               }
             : null,
-        child: Icon(Icons.arrow_forward_ios_outlined),
+        child: Icon(Icons.arrow_forward_ios_outlined,color: Colors.white,),
       ),
     );
   }

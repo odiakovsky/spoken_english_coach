@@ -8,6 +8,7 @@ import 'package:esc/show_phrase.dart';
 import 'package:esc/show_translation.dart';
 import 'package:esc/show_verb.dart';
 import 'package:esc/style_button.dart';
+import 'package:esc/theme/config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -102,9 +103,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                     'Теория',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.roboto(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                      color: currentTheme.currentTheme == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
+                    ),
                   ),
                   const SizedBox(
                     width: 20,
@@ -116,7 +120,19 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               ),
             ),
             const SizedBox(
-              width: 15,
+              width: 5,
+            ),
+            InkWell(
+              onTap: () {
+                showItem();
+              },
+              child: Image.asset(
+                'assets/images/img.png',
+                height: 35,
+              ),
+            ),
+            const SizedBox(
+              width: 5,
             ),
             ElevatedButton(
               style: styleButtonTheoryAndPractice,
@@ -150,9 +166,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                     'Словарь',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.roboto(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                      color: currentTheme.currentTheme == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
+                    ),
                   ),
                   const SizedBox(
                     width: 20,
@@ -185,7 +204,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         'Фраза:',
         textAlign: TextAlign.center,
         style: GoogleFonts.roboto(
-            fontSize: 14, fontWeight: FontWeight.w300, color: Colors.black),
+          fontSize: 16,
+          fontWeight: FontWeight.w300,
+          color: currentTheme.currentTheme == ThemeMode.light
+              ? Colors.black
+              : Colors.white,
+        ),
       ),
       const SizedBox(
         height: 10,
@@ -206,8 +230,18 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             });
           },
           icon: _isPhraseVoicingEnabled
-              ? Icon(Icons.volume_up)
-              : Icon(Icons.volume_off),
+              ? Icon(
+                  Icons.volume_up,
+                  color: currentTheme.currentTheme == ThemeMode.light
+                      ? Colors.black
+                      : Colors.white,
+                )
+              : Icon(
+                  Icons.volume_off,
+                  color: currentTheme.currentTheme == ThemeMode.light
+                      ? Colors.black
+                      : Colors.white,
+                ),
         ),
       ),
       const SizedBox(
@@ -217,7 +251,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         'Перевод:',
         textAlign: TextAlign.center,
         style: GoogleFonts.roboto(
-            fontSize: 14, fontWeight: FontWeight.w300, color: Colors.black),
+          fontSize: 14,
+          fontWeight: FontWeight.w300,
+          color: currentTheme.currentTheme == ThemeMode.light
+              ? Colors.black
+              : Colors.white,
+        ),
       ),
       const SizedBox(
         height: 10,
@@ -255,7 +294,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
             'Автоматический режим',
             textAlign: TextAlign.center,
             style: GoogleFonts.roboto(
-                fontSize: 14, fontWeight: FontWeight.w300, color: Colors.black),
+              fontSize: 14,
+              fontWeight: FontWeight.w300,
+              color: currentTheme.currentTheme == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+            ),
           ),
           const SizedBox(
             width: 60,
@@ -269,13 +313,24 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               });
             },
             icon: _isTranslationVoicingEnabled
-                ? Icon(Icons.volume_up)
-                : Icon(Icons.volume_off),
+                ? Icon(
+                    Icons.volume_up,
+                    color: currentTheme.currentTheme == ThemeMode.light
+                        ? Colors.black
+                        : Colors.white,
+                  )
+                : Icon(
+                    Icons.volume_off,
+                    color: currentTheme.currentTheme == ThemeMode.light
+                        ? Colors.black
+                        : Colors.white,
+                  ),
           ),
         ],
       ),
       Slider(
         value: _currentSliderValue,
+        activeColor: Color(0xFF5987A2),
         min: 5,
         max: 30,
         divisions: 5,
@@ -309,16 +364,14 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          color: Colors.blue.shade50,
+          color: Color(0xFF5A88A3),
           width: double.infinity,
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.min,
             children: [
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: Colors.blue.shade50)),
+              TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -336,9 +389,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                       'Домой',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                        color: currentTheme.currentTheme == ThemeMode.light
+                            ? Colors.black
+                            : Colors.white,
+                      ),
                     ),
                     const SizedBox(
                       width: 20,
@@ -349,9 +405,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
               const SizedBox(
                 width: 15,
               ),
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: Colors.blue.shade50)),
+              TextButton(
                 onPressed: _showNext,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -364,9 +418,12 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                       'Вперед',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                        color: currentTheme.currentTheme == ThemeMode.light
+                            ? Colors.black
+                            : Colors.white,
+                      ),
                     ),
                     const SizedBox(
                       width: 20,
@@ -387,11 +444,33 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
       home: Scaffold(
         backgroundColor: Colors.grey.shade100,
         body: SingleChildScrollView(
-          child: Column(
-            children: children2,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: currentTheme.currentTheme == ThemeMode.light
+                ? BoxDecoration(
+                    color: Color(0xFFF6F6F6),
+                  )
+                : BoxDecoration(
+                    gradient: LinearGradient(colors: <Color>[
+                    Color(0xFF222229),
+                    Color(0xFF6490AA),
+                    Color(0xFF222229),
+                  ])),
+            child: Column(
+              children: children2,
+            ),
           ),
         ),
       ),
     );
+  }
+
+  showItem() {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              content: Image.asset('assets/images/simple_tenses.png'),
+            ));
   }
 }

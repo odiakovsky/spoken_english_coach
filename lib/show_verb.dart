@@ -1,3 +1,4 @@
+import 'package:esc/theme/config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +23,11 @@ class ShowVerb extends StatelessWidget {
         padding: MaterialStateProperty.all<EdgeInsets>(
             const EdgeInsets.fromLTRB(50, 30, 50, 35)),
         minimumSize: MaterialStateProperty.all(const Size(180, 50)),
-        backgroundColor: MaterialStateProperty.all(Colors.white),
+        backgroundColor: MaterialStateProperty.all(
+          currentTheme.currentTheme == ThemeMode.light
+              ? Color(0xFFCDDDE7)
+              : Color(0xFF05324D),
+        ),
         foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
         overlayColor:
             MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
@@ -50,7 +55,10 @@ class ShowVerb extends StatelessWidget {
               style: GoogleFonts.roboto(
                   fontSize: 18,
                   fontWeight: FontWeight.w300,
-                  color: Colors.black),
+                  color:  currentTheme.currentTheme ==
+              ThemeMode.light
+              ? Colors.black
+                : Colors.white,),
             ),
           ),
           const SizedBox(

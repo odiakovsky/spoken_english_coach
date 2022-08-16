@@ -1,3 +1,4 @@
+import 'package:esc/theme/config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'style_button.dart';
@@ -13,15 +14,15 @@ class _SpokenEnglishCoachState extends State<SpokenEnglishCoach> {
   bool switchControl = false;
 
   void toggleSwitch(bool value) {
-    if (switchControl == false) {
-      setState(() {
-        switchControl = true;
-      });
-    } else {
-      setState(() {
-        switchControl = false;
-      });
-    }
+    currentTheme.toggleTheme();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    currentTheme.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -30,11 +31,11 @@ class _SpokenEnglishCoachState extends State<SpokenEnglishCoach> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: switchControl
+          title: currentTheme.currentTheme == ThemeMode.light
               ? Image.asset('assets/images/light-logo.png')
               : Image.asset('assets/images/logo.png'),
           centerTitle: true,
-          flexibleSpace: switchControl
+          flexibleSpace: currentTheme.currentTheme == ThemeMode.light
               ? Container(
                   color: Color(0xFF265D7E),
                 )
@@ -53,7 +54,7 @@ class _SpokenEnglishCoachState extends State<SpokenEnglishCoach> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            decoration: switchControl
+            decoration: currentTheme.currentTheme == ThemeMode.light
                 ? BoxDecoration(
                     color: Color(0xFFF6F6F6),
                   )
@@ -72,7 +73,7 @@ class _SpokenEnglishCoachState extends State<SpokenEnglishCoach> {
                     style: GoogleFonts.roboto(
                         fontSize: 36,
                         fontWeight: FontWeight.w700,
-                        color: switchControl ? Colors.black : Colors.white),
+                        color: currentTheme.currentTheme == ThemeMode.light ? Colors.black : Colors.white),
                   ),
                   Container(
                     width: 300,
@@ -83,22 +84,27 @@ class _SpokenEnglishCoachState extends State<SpokenEnglishCoach> {
                             scale: 1.4,
                             child: Switch(
                               onChanged: toggleSwitch,
-                              value: switchControl,
+                              value:
+                                  currentTheme.currentTheme == ThemeMode.light,
                               activeColor: Colors.white,
                               activeTrackColor: Color(0xFF265D7E),
                               inactiveThumbColor: Colors.white,
                               inactiveTrackColor: Colors.grey,
                             )),
                         Text(
-                          switchControl ? 'Дневной режим' : 'Ночной режим',
+                          currentTheme.currentTheme == ThemeMode.light
+                              ? 'Дневной режим'
+                              : 'Ночной режим',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.roboto(
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
                               color:
-                                  switchControl ? Colors.black : Colors.white),
+                                  currentTheme.currentTheme == ThemeMode.light
+                                      ? Colors.black
+                                      : Colors.white),
                         ),
-                        switchControl
+                        currentTheme.currentTheme == ThemeMode.light
                             ? Image.asset(
                                 'assets/images/dark.png',
                               )

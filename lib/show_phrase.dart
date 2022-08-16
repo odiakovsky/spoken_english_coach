@@ -1,3 +1,4 @@
+import 'package:esc/theme/config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,7 +19,12 @@ class ShowPhrase extends StatelessWidget {
           phrase,
           textAlign: TextAlign.center,
           style: GoogleFonts.roboto(
-              fontSize: 36, fontWeight: FontWeight.w700, color: Colors.black),
+            fontSize: 36,
+            fontWeight: FontWeight.w700,
+            color: currentTheme.currentTheme == ThemeMode.light
+                ? Colors.black
+                : Colors.white,
+          ),
         ),
       ),
     );

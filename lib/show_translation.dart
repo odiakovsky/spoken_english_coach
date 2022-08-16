@@ -1,3 +1,4 @@
+import 'package:esc/theme/config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,7 +21,11 @@ class ShowTranslation extends StatelessWidget {
         padding: MaterialStateProperty.all<EdgeInsets>(
             const EdgeInsets.fromLTRB(50, 30, 50, 30)),
         fixedSize: MaterialStateProperty.all(const Size(350, 100)),
-        backgroundColor: MaterialStateProperty.all(Colors.grey.shade400),
+        backgroundColor: MaterialStateProperty.all(
+          currentTheme.currentTheme == ThemeMode.light
+              ? Color(0xFFCDDDE7)
+              : Color(0xFF05324D),
+        ),
         foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
         overlayColor:
             MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
@@ -34,7 +39,10 @@ class ShowTranslation extends StatelessWidget {
           isTranslationHidden ? 'Показать перевод' : translation,
           textAlign: TextAlign.center,
           style: GoogleFonts.roboto(
-              fontSize: 28, fontWeight: FontWeight.w700, color: Colors.black),
+              fontSize: 28, fontWeight: FontWeight.w700,      color: currentTheme.currentTheme ==
+              ThemeMode.light
+              ? Colors.black
+              : Colors.white,),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:esc/models/tense.dart';
+import 'package:esc/theme/config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,7 +19,7 @@ class VerbCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      color: Colors.white,
+      color:Color(0xFF5C89A4),
       child: Container(
         padding: const EdgeInsets.all(5.0),
         child: Row(
@@ -36,7 +37,7 @@ class VerbCard extends StatelessWidget {
                     style: GoogleFonts.roboto(
                       fontSize: 20,
                       fontWeight: FontWeight.w300,
-                      color: Colors.grey.shade900,
+                      color: Colors.white,
                     ),
                   ),
                   Text(
@@ -44,7 +45,7 @@ class VerbCard extends StatelessWidget {
                     style: GoogleFonts.roboto(
                       fontSize: 20,
                       fontWeight: FontWeight.w300,
-                      color: Colors.grey.shade900,
+                      color: Colors.white,
                     ),
                   ),
                 ],
@@ -110,7 +111,9 @@ class CheckAll extends StatelessWidget {
       ),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        color: Colors.grey.shade300,
+        color: currentTheme.currentTheme == ThemeMode.light
+            ? Color(0xFFCDDDE7)
+            : Color(0xFF05324D),
         child: Container(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -129,7 +132,9 @@ class CheckAll extends StatelessWidget {
                     style: GoogleFonts.roboto(
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
-                      color: Colors.grey.shade900,
+                      color:currentTheme.currentTheme == ThemeMode.light
+                    ? Colors.black
+                      : Colors.white,
                     ),
                   ),
                 ],
