@@ -277,8 +277,11 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         height: 10,
       ),
       Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          const SizedBox(
+            width: 10,
+          ),
           Switch(
             value: isAutoModeEnabled,
             onChanged: (bool value) async {
@@ -301,31 +304,32 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
                   : Colors.white,
             ),
           ),
-          const SizedBox(
-            width: 60,
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: IconButton(
+              iconSize: 30,
+              color: Colors.black,
+              onPressed: () {
+                setState(() {
+                  _isTranslationVoicingEnabled = !_isTranslationVoicingEnabled;
+                });
+              },
+              icon: _isTranslationVoicingEnabled
+                  ? Icon(
+                      Icons.volume_up,
+                      color: currentTheme.currentTheme == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
+                    )
+                  : Icon(
+                      Icons.volume_off,
+                      color: currentTheme.currentTheme == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
+                    ),
+            ),
           ),
-          IconButton(
-            iconSize: 30,
-            color: Colors.black,
-            onPressed: () {
-              setState(() {
-                _isTranslationVoicingEnabled = !_isTranslationVoicingEnabled;
-              });
-            },
-            icon: _isTranslationVoicingEnabled
-                ? Icon(
-                    Icons.volume_up,
-                    color: currentTheme.currentTheme == ThemeMode.light
-                        ? Colors.black
-                        : Colors.white,
-                  )
-                : Icon(
-                    Icons.volume_off,
-                    color: currentTheme.currentTheme == ThemeMode.light
-                        ? Colors.black
-                        : Colors.white,
-                  ),
-          ),
+
         ],
       ),
       Slider(
@@ -361,12 +365,14 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           }
         },
       ),
+      Spacer(),
       Align(
         alignment: Alignment.bottomCenter,
         child: Container(
           color: Color(0xFF5A88A3),
           width: double.infinity,
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+          margin: EdgeInsets.only(left: 10,right: 10,bottom:10 ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.min,

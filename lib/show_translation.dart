@@ -20,7 +20,7 @@ class ShowTranslation extends StatelessWidget {
       style: ButtonStyle(
         padding: MaterialStateProperty.all<EdgeInsets>(
             const EdgeInsets.fromLTRB(50, 30, 50, 30)),
-        fixedSize: MaterialStateProperty.all(const Size(350, 100)),
+        fixedSize: MaterialStateProperty.all(const Size(410, 120)),
         backgroundColor: MaterialStateProperty.all(
           currentTheme.currentTheme == ThemeMode.light
               ? Color(0xFFCDDDE7)

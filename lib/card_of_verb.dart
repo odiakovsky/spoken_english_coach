@@ -18,7 +18,6 @@ class VerbCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color:Color(0xFF5C89A4),
       child: Container(
         padding: const EdgeInsets.all(5.0),
@@ -110,7 +109,6 @@ class CheckAll extends StatelessWidget {
         minHeight: double.minPositive,
       ),
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         color: currentTheme.currentTheme == ThemeMode.light
             ? Color(0xFFCDDDE7)
             : Color(0xFF05324D),

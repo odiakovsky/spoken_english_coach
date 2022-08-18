@@ -18,7 +18,4 @@ var styleButtonTheoryAndPractice = ButtonStyle(
   backgroundColor: MaterialStateProperty.all(Color(0xFF5A88A3)),
   foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
   overlayColor: MaterialStateProperty.all(Colors.lightBlue.shade50),
-  shape: MaterialStateProperty.all(
-    RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-  ),
 );

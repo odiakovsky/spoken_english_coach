@@ -21,8 +21,8 @@ class ShowVerb extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
         padding: MaterialStateProperty.all<EdgeInsets>(
-            const EdgeInsets.fromLTRB(50, 30, 50, 35)),
-        minimumSize: MaterialStateProperty.all(const Size(180, 50)),
+            const EdgeInsets.fromLTRB(50, 30, 50, 30)),
+        fixedSize: MaterialStateProperty.all(const Size(410, 120)),
         backgroundColor: MaterialStateProperty.all(
           currentTheme.currentTheme == ThemeMode.light
               ? Color(0xFFCDDDE7)
@@ -31,9 +31,6 @@ class ShowVerb extends StatelessWidget {
         foregroundColor: MaterialStateProperty.all(Colors.grey.shade700),
         overlayColor:
             MaterialStateProperty.all(Colors.lightBlueAccent.shade100),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        ),
       ),
       onPressed: () => onPressed(!isVerbHidden),
       child: Row(
@@ -46,7 +43,7 @@ class ShowVerb extends StatelessWidget {
           const SizedBox(
             width: 20,
           ),
-          FittedBox(
+          Expanded(
             child: Text(
               isVerbHidden
                   ? 'Показать глагол '

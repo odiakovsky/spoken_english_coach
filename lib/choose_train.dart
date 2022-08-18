@@ -82,8 +82,6 @@ class _ChooseTrainState extends State<ChooseTrain> {
                   Container(
                     constraints: BoxConstraints.loose(const Size(450, 140)),
                     child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
                       color: currentTheme.currentTheme == ThemeMode.light
                           ? Color(0xFFCDDDE7)
                           : Color(0xFF05324D),
@@ -234,8 +232,6 @@ class _ChooseTrainState extends State<ChooseTrain> {
                   Container(
                     constraints: BoxConstraints.loose(const Size(450, 140)),
                     child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
                       color: currentTheme.currentTheme == ThemeMode.light
                           ? Color(0xFFCDDDE7)
                           : Color(0xFF05324D),
@@ -247,10 +243,10 @@ class _ChooseTrainState extends State<ChooseTrain> {
                             padding: EdgeInsets.all(10.0),
                             child: Icon(
                               Icons.lock_outline,
-                              color: currentTheme.currentTheme ==
-                                  ThemeMode.light
-                                  ? Colors.black
-                                  : Colors.white,
+                              color:
+                                  currentTheme.currentTheme == ThemeMode.light
+                                      ? Colors.black
+                                      : Colors.white,
                             ),
                           ),
                           Container(
@@ -367,8 +363,6 @@ class _ChooseTrainState extends State<ChooseTrain> {
                   Container(
                     constraints: BoxConstraints.loose(const Size(450, 140)),
                     child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
                       color: currentTheme.currentTheme == ThemeMode.light
                           ? Color(0xFFCDDDE7)
                           : Color(0xFF05324D),
@@ -377,14 +371,14 @@ class _ChooseTrainState extends State<ChooseTrain> {
                         children: [
                           Container(
                             alignment: Alignment.topRight,
-                            child:    Padding(
+                            child: Padding(
                               padding: EdgeInsets.all(10.0),
                               child: Icon(
                                 Icons.lock_outline,
-                                color: currentTheme.currentTheme ==
-                                    ThemeMode.light
-                                    ? Colors.black
-                                    : Colors.white,
+                                color:
+                                    currentTheme.currentTheme == ThemeMode.light
+                                        ? Colors.black
+                                        : Colors.white,
                               ),
                             ),
                           ),
@@ -515,8 +509,6 @@ class _ChooseTrainState extends State<ChooseTrain> {
                   Container(
                     constraints: BoxConstraints.loose(const Size(450, 140)),
                     child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
                       color: currentTheme.currentTheme == ThemeMode.light
                           ? Color(0xFFCDDDE7)
                           : Color(0xFF05324D),
@@ -528,10 +520,10 @@ class _ChooseTrainState extends State<ChooseTrain> {
                             padding: EdgeInsets.all(10.0),
                             child: Icon(
                               Icons.lock_outline,
-                              color: currentTheme.currentTheme ==
-                                  ThemeMode.light
-                                  ? Colors.black
-                                  : Colors.white,
+                              color:
+                                  currentTheme.currentTheme == ThemeMode.light
+                                      ? Colors.black
+                                      : Colors.white,
                             ),
                           ),
                           Container(
@@ -648,8 +640,6 @@ class _ChooseTrainState extends State<ChooseTrain> {
                   Container(
                     constraints: BoxConstraints.loose(const Size(450, 140)),
                     child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
                       color: currentTheme.currentTheme == ThemeMode.light
                           ? Color(0xFFCDDDE7)
                           : Color(0xFF05324D),
@@ -657,14 +647,14 @@ class _ChooseTrainState extends State<ChooseTrain> {
                       child: Stack(
                         alignment: Alignment.topRight,
                         children: [
-                           Padding(
+                          Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Icon(
                               Icons.lock_outline,
-                              color: currentTheme.currentTheme ==
-                                  ThemeMode.light
-                                  ? Colors.black
-                                  : Colors.white,
+                              color:
+                                  currentTheme.currentTheme == ThemeMode.light
+                                      ? Colors.black
+                                      : Colors.white,
                             ),
                           ),
                           Container(

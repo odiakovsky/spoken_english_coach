@@ -130,18 +130,171 @@ class _TheoryOfSimpleTensesState extends State<TheoryOfSimpleTenses> {
             const SizedBox(
               height: 10,
             ),
-            isShow ? MyWidget(text: text6) : Container(),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  isShow = !isShow;
-                });
-              },
-              child: Container(
-                  child: currentTheme.currentTheme == ThemeMode.light
-                      ? Image.asset('assets/images/simple_tenses.png')
-                      : Image.asset('assets/images/table_simple_tenses.png')),
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: Center(
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        showItem(text6);
+                      },
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Column(
+                          children: [
+                            Text(
+                              'ВОПРОС',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 10),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2),
+                              child: Image.asset(
+                                'assets/images/1.png',
+                                height: 100,
+                                width: 98,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            SizedBox(height: 15)
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        showItem(text6);
+                      },
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Column(
+                          children: [
+                            Text(
+                              'УТВЕРЖДЕНИЕ',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 10),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2),
+                              child: Image.asset(
+                                'assets/images/2.png',
+                                height: 100,
+                                width: 98,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            SizedBox(height: 15)
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        showItem(text6);
+                      },
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Column(
+                          children: [
+                            Text(
+                              'ОТРИЦАНИЕ',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 10),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2),
+                              child: Image.asset(
+                                'assets/images/3.png',
+                                height: 100,
+                                width: 98,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            SizedBox(height: 15)
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        showItem(text6);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset(
+                          'assets/images/4.png',
+                          height: 100,
+                          width: 98,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        showItem(text6);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset('assets/images/5.png'),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        showItem(text6);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset('assets/images/6.png'),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        showItem(text6);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset(
+                          'assets/images/7.png',
+                          height: 100,
+                          width: 98,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        showItem(text6);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset('assets/images/8.png'),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        showItem(text6);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset('assets/images/9.png'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
+            // InkWell(
+            //   onTap: () {
+            //     showItem(text6);
+            //   },
+            //   child: Container(
+            //       child: currentTheme.currentTheme == ThemeMode.light
+            //           ? Image.asset('assets/images/simple_tenses.png')
+            //           : Image.asset('assets/images/table_simple_tenses.png')),
+            // ),
             const SizedBox(
               height: 30,
             ),
@@ -155,6 +308,32 @@ class _TheoryOfSimpleTensesState extends State<TheoryOfSimpleTenses> {
         )),
       ),
     );
+  }
+
+  showItem(text) {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              backgroundColor: currentTheme.currentTheme == ThemeMode.light
+                  ? Color(0xFFCDDDE7)
+                  : Color(0xFF05324D),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
+              content: Container(
+                height: 193,
+                alignment: Alignment.centerRight,
+                decoration: new BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: currentTheme.currentTheme == ThemeMode.light
+                      ? Color(0xFFCDDDE7)
+                      : Color(0xFF05324D),
+                  borderRadius: new BorderRadius.all(new Radius.circular(32.0)),
+                ),
+                child: Container(
+                  child: text,
+                ),
+              ),
+            ));
   }
 }
 
