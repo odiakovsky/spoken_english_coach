@@ -452,7 +452,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.only(left: 10,right: 10),
+          padding: EdgeInsets.only(left: 6,right: 6),
           decoration: currentTheme.currentTheme == ThemeMode.light
               ? BoxDecoration(
                   color: Color(0xFFF6F6F6),
