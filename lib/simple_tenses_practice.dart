@@ -76,7 +76,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
   Widget build(BuildContext context) {
     var children2 = [
       const SizedBox(
-        height: 50,
+        height: 10,
       ),
       Center(
         child: Row(
@@ -365,7 +365,7 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
           }
         },
       ),
-      Spacer(),
+      SizedBox(height: 10),
       Align(
         alignment: Alignment.bottomCenter,
         child: Container(
@@ -449,23 +449,22 @@ class _SimpleTensesPracticeState extends State<SimpleTensesPractice> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.grey.shade100,
-        body: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: currentTheme.currentTheme == ThemeMode.light
-                ? BoxDecoration(
-                    color: Color(0xFFF6F6F6),
-                  )
-                : BoxDecoration(
-                    gradient: LinearGradient(colors: <Color>[
-                    Color(0xFF222229),
-                    Color(0xFF6490AA),
-                    Color(0xFF222229),
-                  ])),
-            child: Column(
-              children: children2,
-            ),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.only(left: 10,right: 10),
+          decoration: currentTheme.currentTheme == ThemeMode.light
+              ? BoxDecoration(
+                  color: Color(0xFFF6F6F6),
+                )
+              : BoxDecoration(
+                  gradient: LinearGradient(colors: <Color>[
+                  Color(0xFF222229),
+                  Color(0xFF6490AA),
+                  Color(0xFF222229),
+                ])),
+          child: ListView(
+            children: children2,
           ),
         ),
       ),
